@@ -1,0 +1,22 @@
+/* Style normalizer */
+@import url(../vendor/normalize/normalize.css);
+
+/* Fonts */
+@import url(../vendor/fonts/font.css);
+
+/* Root */
+@import url(../blocks/root/root.css);
+
+/* Page */
+@import url(../blocks/page/page.css);
+
+/* Header */
+@import url(../blocks/header/header.css);
+@import url(../blocks/header/__logo/header__logo.css);
+
+/* Main */
+@import url(../blocks/main/main.css);
+
+/* Profile */
+@import url(../blocks/profile/profile.css);
+@import url(../blocks/profile/__avatar/profile__avatar.css);

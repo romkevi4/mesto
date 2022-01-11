@@ -1,18 +1,52 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./style/index.css">
   <title>Mesto</title>
 </head>
 <body class="root">
   <div class="page">
     <header class="header">
-      
+      <img 
+        src="./images/header/__logo/header-logo.svg" 
+        alt="Изображен логотип Mesto" 
+        class="header__logo"
+      >
     </header>
+    
+    <main class="main">
+      <section class="profile">
+        <img 
+          src="./images/profile/__avatar/profile-avatar.png" 
+          alt="На фото изображен Жак-Ив Кусто, французский исследователь Мирового океана"
+          class="profile__avatar"
+        >
+        
+        <article class="profile__info">
+          <h1 class="profile__title">Жак-Ив Кусто</h1>
+          <p class="profile__subtitle">Исследователь океана</p>
 
+          <img 
+            src="./images/profile/__vector/profile-vector.svg" 
+            alt="" 
+            class="profile__vector"
+          >
 
+        </article>
+      </section>
+
+      <section class="elements">
+
+      </section>
+    </main>
+
+    <footer>
+
+    </footer>
   </div> <!-- .page -->
+  <script src="./script/index.js"></script>
 </body>
 </html>

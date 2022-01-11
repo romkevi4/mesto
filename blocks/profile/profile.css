@@ -1,0 +1,11 @@
+/* Profile */
+.profile {
+  margin: 0 auto;
+  padding: 0 0 50px;
+  max-width: 880px;
+  width: 100%;
+
+  /* display: grid;
+  grid-template: 1fr / 1fr;
+  gap: 30px; */
+}
