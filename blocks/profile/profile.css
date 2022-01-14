@@ -4,8 +4,37 @@
   padding: 0 0 50px;
   max-width: 880px;
   width: 100%;
+  min-height: 120px;
 
-  /* display: grid;
-  grid-template: 1fr / 1fr;
-  gap: 30px; */
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+@media screen and (max-width: 899px) {
+  .profile {
+    width: 95%;
+  }
+}
+
+@media screen and (max-width: 720px) {
+  .profile {
+    min-height: 187px;
+    flex-direction: column;
+  }
+}
+
+@media screen and (max-width: 540px) {
+  .profile {
+    padding-bottom: 36px;
+    max-width: 282px;
+    min-height: 286px;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .profile {
+    width: 88%;
+  }
 }

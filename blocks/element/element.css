@@ -1,0 +1,10 @@
+/* Element */
+.element {
+  margin: 0;
+  padding: 0;
+  /* max-width: 282px; */
+  width: 100%;
+  max-height: 361px;
+  border-radius: 10px;
+  background: #fff;
+}

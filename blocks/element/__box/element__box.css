@@ -1,0 +1,12 @@
+/* Element */
+.element__box {
+  margin: 25px auto 31px;
+  padding: 0;
+  max-width: 246px;
+  min-height: 23px;
+  
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: baseline;
+}

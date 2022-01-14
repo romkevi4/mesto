@@ -1,0 +1,10 @@
+/* Element */
+.element__image {
+  margin: 0;
+  min-width: 282px;
+  min-height: 282px;
+  width: 100%;
+  height: 80%;
+  border-radius: 10px 10px 0 0;
+  object-fit: cover;
+}

@@ -1,0 +1,17 @@
+/* Profile */
+.profile__about-me {
+  margin: 0;
+  min-width: 294px;
+  width: 100%;
+  font-size: 18px;
+  line-height: 1.21;
+}
+
+@media screen and (max-width: 540px) {
+  .profile__about-me {
+    min-width: min-content;
+    font-size: 14px;
+    text-align: center;
+  }
+}
+

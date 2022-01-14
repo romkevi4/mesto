@@ -1,0 +1,26 @@
+/* Elements */
+.elements {
+  margin: 0 auto;
+  padding: 0;
+  max-width: 880px;
+  width: 100%;
+  min-height: 744px;
+  display: grid;
+  grid-template: repeat(2, 1fr) / repeat(3, 1fr);
+  gap: 20px 17px
+}
+
+@media screen and (max-width: 899px) {
+  .elements {
+    max-width: calc(282px * 2 + 17px);
+    grid-template: repeat(3, 1fr) / repeat(2, 1fr);
+  }
+}
+
+@media screen and (max-width: 598px) {
+  .elements {
+    max-width: 282px;
+    grid-template: repeat(6, 1fr) / repeat(1, 1fr);
+    gap: 20px;
+  }
+}
