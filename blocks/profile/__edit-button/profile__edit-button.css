@@ -4,12 +4,19 @@
   padding: 0;
   width: 24px;
   height: 24px;
-  background-color: #000;
+  background-color: transparent;
   background-image: url(../../../images/profile/__edit-button/profile-edit-button.svg);
   background-repeat: no-repeat;
   background-position: center;
   background-size: 10px 10px;
   border: 1px solid #fff;
+  opacity: 1;
+  transition: opacity 180ms linear 2ms;
+}
+
+.profile__edit-button:hover {
+  opacity: .5;
+  cursor: pointer;
 }
 
 @media screen and (max-width: 540px) {

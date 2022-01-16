@@ -1,0 +1,39 @@
+/* Popup */
+.popup__save-button {
+  margin: 0 auto;
+  padding: 0;
+  width: 358px;
+  height: 50px;
+
+  background-color: #000;
+  border: none;
+  border-radius: 2px;
+  opacity: 1;
+  transition: opacity 180ms linear 2ms;
+}
+
+.popup__save-button::after {
+  content: "Сохранить";
+  color: #fff;
+  font-size: 18px;
+  line-height: 1.22;
+  text-align: center;
+}
+
+.popup__save-button:hover {
+  opacity: .8;
+  cursor: pointer;
+}
+
+
+@media screen and (max-width: 540px) {
+  .popup__save-button {
+    width: 238px;
+    height: 46px;
+  }
+
+  .popup__save-button::after {
+    font-size: 14px;
+    line-height: 1.21;
+  }
+}

@@ -18,8 +18,20 @@
         >
       </div>
     </header>
-    
+
     <main class="main">
+      <section class="popup">
+        <div class="popup__container">
+          <button aria-label="Закрыть" type="button" class="popup__close-button"></button>
+          <form action="" method="post" name="editingProfile" class="popup__form">
+            <h2 class="popup__title">Редактировать профиль</h2>
+            <input type="text" autocomplete="on" name="name" placeholder="Жак-Ив Кусто" class="popup__item">
+            <input type="text" autocomplete="on" name="about-me" placeholder="Исследователь океана" class="popup__item">
+            <button aria-label="Сохранить" type="submit" class="popup__save-button"></button>
+          </form>
+        </div> <!-- .popup__container -->
+      </section>
+      
       <section class="profile">
         <article class="profile__card">
           <img 
@@ -30,12 +42,12 @@
           <div class="profile__info">
             <div class="profile__box">
               <h1 class="profile__name">Жак-Ив Кусто</h1>
-              <button class="profile__edit-button"></button>
+              <button aria-label="Редактировать" type="button" class="profile__edit-button"></button>
             </div>  <!-- .profile__box -->
             <p class="profile__about-me">Исследователь океана</p>
           </div> <!-- profile__info -->
         </article>
-        <button class="profile__add-button"></button>
+        <button aria-label="Добавить" type="button" class="profile__add-button"></button>
       </section>
 
       <section class="elements">
@@ -46,8 +58,8 @@
             class="element__image"
           >
           <div class="element__box">
-            <h2 class="element__title">Карачаевск</h2>
-            <button class="element__button"></button>
+            <h3 class="element__title">Карачаевск</h3>
+            <button aria-label="Лайк" type="button" class="element__like-button"></button>
           </div>
         </article>
 
@@ -58,8 +70,8 @@
             class="element__image"
           >
           <div class="element__box">
-            <h2 class="element__title">Гора Эльбрус</h2>
-            <button class="element__button"></button>
+            <h3 class="element__title">Гора Эльбрус</h3>
+            <button aria-label="Лайк" type="button" class="element__like-button"></button>
           </div>
         </article>
 
@@ -70,8 +82,8 @@
             class="element__image"
           >
           <div class="element__box">
-            <h2 class="element__title">Домбай</h2>
-            <button class="element__button"></button>
+            <h3 class="element__title">Домбай</h3>
+            <button aria-label="Лайк" type="button" class="element__like-button"></button>
           </div>
         </article>
 
@@ -82,8 +94,8 @@
             class="element__image"
           >
           <div class="element__box">
-            <h2 class="element__title">Байкал</h2>
-            <button class="element__button"></button>
+            <h3 class="element__title">Байкал</h3>
+            <button aria-label="Лайк" type="button" class="element__like-button"></button>
           </div>
         </article>
 
@@ -94,8 +106,8 @@
             class="element__image"
           >
           <div class="element__box">
-            <h2 class="element__title">Камчатка</h2>
-            <button class="element__button"></button>
+            <h3 class="element__title">Камчатка</h3>
+            <button aria-label="Лайк" type="button" class="element__like-button"></button>
           </div>
         </article>
 
@@ -106,8 +118,8 @@
             class="element__image"
           >
           <div class="element__box">
-            <h2 class="element__title">Сочи</h2>
-            <button class="element__button"></button>
+            <h3 class="element__title">Сочи</h3>
+            <button aria-label="Лайк" type="button" class="element__like-button"></button>
           </div>
         </article>
       </section>

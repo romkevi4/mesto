@@ -1,0 +1,4 @@
+/* Element */
+.element__like-button_active svg {
+  fill: #000;
+}
