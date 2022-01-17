@@ -13,6 +13,6 @@
 
 ### GitHub Pages
 
-* [Ссылка на проект](https://https://romkevi4.github.io/mesto/index.html)
+* [Ссылка на проект](https://romkevi4.github.io/mesto/index.html)
 
 
