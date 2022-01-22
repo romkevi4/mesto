@@ -1,7 +1,7 @@
 /* Popup */
 .popup__item {
   margin: 0 0 30px;
-  padding: 0;
+  padding: 0 0 0 5px;
   width: 358px;
   height: 27px;
   border: none;
@@ -14,10 +14,6 @@
 
 .popup__item:last-of-type {
   margin-bottom: 48px;
-}
-
-.popup__item:focus {
-  outline: none;
 }
 
 .popup__item:focus::-webkit-input-placeholder {

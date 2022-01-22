@@ -4,7 +4,6 @@
   padding: 0 0 50px;
   max-width: 880px;
   width: 100%;
-  min-height: 120px;
 
   display: flex;
   flex-direction: row;
@@ -20,8 +19,8 @@
 
 @media screen and (max-width: 720px) {
   .profile {
-    min-height: 187px;
     flex-direction: column;
+    justify-content: flex-start;
   }
 }
 
@@ -29,11 +28,10 @@
   .profile {
     padding-bottom: 36px;
     max-width: 282px;
-    min-height: 286px;
   }
 }
 
-@media screen and (max-width: 320px) {
+@media screen and (max-width: 320px) { 
   .profile {
     width: 88%;
   }

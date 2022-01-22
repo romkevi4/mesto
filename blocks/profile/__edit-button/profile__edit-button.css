@@ -12,10 +12,11 @@
   border: 1px solid #fff;
   opacity: 1;
   transition: opacity 180ms linear 2ms;
+  display: flex;
 }
 
 .profile__edit-button:hover {
-  opacity: .5;
+  opacity: .6;
   cursor: pointer;
 }
 

@@ -5,6 +5,7 @@
   max-width: 1280px;
   min-width: 320px;
   width: 100%;
+  min-height: 100vh;
 
   font-family: 'Inter', 'Arial', 'Helvetica', sans-serif;
   font-style: normal;
@@ -16,6 +17,8 @@
 
   box-sizing: border-box;
   position: relative;
+  display: flex;
+  flex-direction: column;
 }
 
 @media screen and (max-width: 540px) {

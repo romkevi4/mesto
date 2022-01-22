@@ -12,7 +12,11 @@
   gap: 30px;
 }
 
-
+@media screen and (max-width: 720px) {
+  .profile__card {
+    padding-bottom: 36px;
+  }
+}
 
 @media screen and (max-width: 540px) {
   .profile__card {

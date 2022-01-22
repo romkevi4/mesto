@@ -4,23 +4,20 @@
   padding: 0;
   max-width: 880px;
   width: 100%;
-  min-height: 744px;
   display: grid;
-  grid-template: repeat(2, 1fr) / repeat(3, 1fr);
+  grid-template: repeat(auto-fit, minmax(361px, 1fr)) / repeat(auto-fit, minmax(282px, 1fr));
   gap: 20px 17px;
 }
 
 @media screen and (max-width: 899px) {
   .elements {
-    max-width: calc(282px * 2 + 17px);
-    grid-template: repeat(3, 1fr) / repeat(2, 1fr);
+    width: 95%;
   }
 }
 
-@media screen and (max-width: 598px) {
+@media screen and (max-width: 540px) {
   .elements {
-    max-width: 282px;
-    grid-template: repeat(6, 1fr) / repeat(1, 1fr);
-    gap: 20px;
+    min-width: 282px;
+    width: 88%;
   }
 }
