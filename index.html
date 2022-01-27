@@ -115,13 +115,25 @@
       <address class="footer__copyright">&COPY; 2021 Mesto Russia</address>
     </footer>
 
-    <div class="popup">
+    <div class="popup" id="popup-edit">
       <div class="popup__container">
         <button aria-label="Закрыть" type="button" class="popup__close-button"></button>
         <form method="post" name="editingProfile" class="popup__form">
           <h2 class="popup__title">Редактировать профиль</h2>
-          <input type="text" autocomplete="off" name="name" placeholder="Имя пользователя" value="" required class="popup__item" id="popup__item-name">
-          <input type="text" autocomplete="off" name="about-me" placeholder="Чем Вы занимаетесь" value="" required class="popup__item" id="popup__item-about-me">
+          <input type="text" autocomplete="off" name="popupName" placeholder="Имя пользователя" value="" required class="popup__item" id="popup__item-name">
+          <input type="text" autocomplete="off" name="popupAboutMe" placeholder="Чем Вы занимаетесь" value="" required class="popup__item" id="popup__item-about-me">
+          <button aria-label="Сохранить" type="submit" class="popup__save-button"></button>
+        </form>
+      </div> <!-- .popup__container -->
+    </div> <!-- .popup -->
+
+    <div class="popup" id="popup-add">
+      <div class="popup__container">
+        <button aria-label="Закрыть" type="button" class="popup__close-button"></button>
+        <form method="post" name="addPlace" class="popup__form">
+          <h2 class="popup__title">Новое место</h2>
+          <input type="text" autocomplete="off" name="popupTitle" placeholder="Название" value="" required class="popup__item" id="popup__item-title">
+          <input type="text" autocomplete="off" name="popupLink" placeholder="Ссылка на картинку" value="" required class="popup__item" id="popup__item-link">
           <button aria-label="Сохранить" type="submit" class="popup__save-button"></button>
         </form>
       </div> <!-- .popup__container -->
