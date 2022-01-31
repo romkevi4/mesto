@@ -1,0 +1,7 @@
+/* Popup */
+.popup__container_size_big {
+  width: 75vw;
+  height: 75vh;
+  display: flex;
+  position: relative;
+}

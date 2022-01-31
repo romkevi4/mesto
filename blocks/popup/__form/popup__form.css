@@ -7,11 +7,6 @@
   background-color: #fff;
   border-radius: 10px;
   box-shadow: 0px 0px 25px rgba(0, 0, 0, .15);
-  
-  grid-row: 2 / 3;
-  grid-column: 1 / 2;
-  align-self: end;
-  justify-self: start;
 
   display: flex;
   flex-direction: column;
@@ -21,8 +16,6 @@
 
 @media screen and (max-width: 540px) {
   .popup__form {
-    margin: 0;
     width: 282px;
-    align-items: start;
   }
 }

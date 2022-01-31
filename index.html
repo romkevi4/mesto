@@ -35,86 +35,6 @@
         </div> <!-- profile__card -->       
         <button aria-label="Добавить" type="button" class="profile__add-button"></button>
       </section>
-
-      <section class="elements">
-        <article class="element">
-          <img 
-            src="./images/element/__image/element-image-karachayevsk.jpg" 
-            alt="Изображена старая каменная церковь в Карачаевске" 
-            class="element__image"
-          >
-          <div class="element__box">
-            <h2 class="element__title">Карачаевск</h2>
-            <button aria-label="Лайк" type="button" class="element__like-button"></button>
-          </div>
-          <button aria-label="Удалить" type="button" class="element__delete-button"></button>
-        </article>
-
-        <article class="element">
-          <img 
-            src="./images/element/__image/element-image-elbrus.jpg" 
-            alt="Изображена гора Эльбрус" 
-            class="element__image"
-          >
-          <div class="element__box">
-            <h2 class="element__title">Гора Эльбрус</h2>
-            <button aria-label="Лайк" type="button" class="element__like-button"></button>
-          </div>
-          <button aria-label="Удалить" type="button" class="element__delete-button"></button>
-        </article>
-
-        <article class="element">
-          <img 
-            src="./images/element/__image/element-image-dombay.jpg" 
-            alt="Изображена гора в тумане рядом с посёлком Донбай" 
-            class="element__image"
-          >
-          <div class="element__box">
-            <h2 class="element__title">Домбай</h2>
-            <button aria-label="Лайк" type="button" class="element__like-button"></button>
-          </div>
-          <button aria-label="Удалить" type="button" class="element__delete-button"></button>
-        </article>
-
-        <article class="element">
-          <img 
-            src="./images/element/__image/element-image-baikal.jpg" 
-            alt="Изображен скалистый мыс 'Три брата' на озере Байкал" 
-            class="element__image"
-          >
-          <div class="element__box">
-            <h2 class="element__title">Байкал</h2>
-            <button aria-label="Лайк" type="button" class="element__like-button"></button>
-          </div>
-          <button aria-label="Удалить" type="button" class="element__delete-button"></button>
-        </article>
-
-        <article class="element">
-          <img 
-            src="./images/element/__image/element-image-kamchatka.jpg" 
-            alt="Изображена гора на Камчатке" 
-            class="element__image"
-          >
-          <div class="element__box">
-            <h2 class="element__title">Камчатка</h2>
-            <button aria-label="Лайк" type="button" class="element__like-button"></button>
-          </div>
-          <button aria-label="Удалить" type="button" class="element__delete-button"></button>
-        </article>
-
-        <article class="element">
-          <img 
-            src="./images/element/__image/element-image-sochi.jpg" 
-            alt="Изображен пляж в Сочи" 
-            class="element__image"
-          >
-          <div class="element__box">
-            <h2 class="element__title">Сочи</h2>
-            <button aria-label="Лайк" type="button" class="element__like-button"></button>
-          </div>
-          <button aria-label="Удалить" type="button" class="element__delete-button"></button>
-        </article>
-      </section>
     </main>
 
     <footer class="footer">
@@ -144,6 +64,26 @@
         </form>
       </div> <!-- .popup__container -->
     </div> <!-- .popup -->
+
+    <template id="elements">
+      <article class="element">
+        <button aria-label="Картинка" type="button" class="element__image-button">
+          <img class="element__image">
+        </button>
+        <div class="element__box">
+          <h2 class="element__title"></h2>
+          <button aria-label="Лайк" type="button" class="element__like-button"></button>
+        </div>
+        <button aria-label="Удалить" type="button" class="element__delete-button"></button>
+
+        <div class="popup" id="popup-image">
+          <div class="popup__container popup__container_size_big">
+            <button aria-label="Закрыть" type="button" class="popup__close-button"></button>
+            <img class="popup__image">
+          </div> <!-- .popup__container -->
+        </div> <!-- .popup -->
+      </article>
+    </template>
   </div> <!-- .page -->
 
   <script src="./script/index.js"></script>
