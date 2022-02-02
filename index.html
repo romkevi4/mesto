@@ -35,6 +35,8 @@
         </div> <!-- profile__card -->       
         <button aria-label="Добавить" type="button" class="profile__add-button"></button>
       </section>
+
+      <section class="elements"></section>
     </main>
 
     <footer class="footer">
@@ -65,6 +67,14 @@
       </div> <!-- .popup__container -->
     </div> <!-- .popup -->
 
+    <div class="popup popup_opacity" id="popup-image">
+      <div class="popup__container popup__container_size_big">
+        <button aria-label="Закрыть" type="button" class="popup__close-button"></button>
+        <img class="popup__image">
+        <p class="popup__text"></p>
+      </div> <!-- .popup__container -->
+    </div> <!-- .popup -->
+
     <template id="elements">
       <article class="element">
         <button aria-label="Картинка" type="button" class="element__image-button">
@@ -75,14 +85,6 @@
           <button aria-label="Лайк" type="button" class="element__like-button"></button>
         </div>
         <button aria-label="Удалить" type="button" class="element__delete-button"></button>
-
-        <div class="popup" id="popup-image">
-          <div class="popup__container popup__container_size_big">
-            <button aria-label="Закрыть" type="button" class="popup__close-button"></button>
-            <img class="popup__image">
-            <p class="popup__text"></p>
-          </div> <!-- .popup__container -->
-        </div> <!-- .popup -->
       </article>
     </template>
   </div> <!-- .page -->
