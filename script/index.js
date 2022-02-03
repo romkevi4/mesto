@@ -55,13 +55,11 @@ const popupPlaceLink = popupFormAddPlace.elements.popupLink;
 // Элементы попапа с картинками 
 const popupImage = document.querySelector('#popup-image');
 
-let iCard;
-
 
 // Получение наименований мест и ссылок на картинки из исходного массива
 function getCards(array) {
   array.reverse().forEach((item) => {
-    iCard = createCard(item.name, item.link);
+    const iCard = createCard(item.name, item.link);
     renderCard(iCard, cards);
   });
 }
@@ -122,7 +120,7 @@ function openPopupAdd() {
 }
 
 // Закрытие попапов
-function addPopupListeners(element) {
+function addPopupCloseListeners(element) {
   element.querySelector('.popup__close-button').addEventListener('click', closePopup);
 }
 
@@ -141,7 +139,7 @@ function saveFormEdit(event) {
 // Сохранение формы добавления новой карточки
 function saveFormAdd(event) {
   event.preventDefault();
-  iCard = createCard(popupPlaceTitle.value, popupPlaceLink.value);
+  const iCard = createCard(popupPlaceTitle.value, popupPlaceLink.value);
   renderCard(iCard, cards);
   closePopup(event);
 }
@@ -151,9 +149,9 @@ profileEditBtn.addEventListener('click', openPopupEdit);
 placeAddBtn.addEventListener('click', openPopupAdd);
 
 // События закрытия попапов
-addPopupListeners(popupEdit);
-addPopupListeners(popupAdd);
-addPopupListeners(popupImage);
+addPopupCloseListeners(popupEdit);
+addPopupCloseListeners(popupAdd);
+addPopupCloseListeners(popupImage);
 
 // События сохранения форм
 popupFormEditingProfile.addEventListener('submit', saveFormEdit);
