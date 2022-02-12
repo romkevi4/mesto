@@ -1,0 +1,5 @@
+/* Popup */
+.popup__item_type_error {
+  /*color: #C4C4C4;*/
+  border-bottom-color: #FF0000;
+}

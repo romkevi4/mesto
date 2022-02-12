@@ -1,6 +1,6 @@
 /* Popup */
 .popup__item {
-  margin: 0 0 30px;
+  margin: 0 0 5px;
   padding: 0 0 0 5px;
   width: 358px;
   height: 27px;
@@ -10,10 +10,6 @@
   line-height: 1.21;
   color: #000;
   opacity: 1;
-}
-
-.popup__item:last-of-type {
-  margin-bottom: 48px;
 }
 
 .popup__item:focus::-webkit-input-placeholder {
@@ -90,11 +86,7 @@
 
 @media screen and (max-width: 540px) {
   .popup__item {
-    margin: 0 auto 30px;
+    margin: 0 auto 5px;
     width: 238px;
-  }
-
-  .popup__item:last-of-type {
-    margin-bottom: 45px;
   }
 }
