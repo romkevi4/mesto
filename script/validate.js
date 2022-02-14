@@ -1,31 +1,84 @@
-
-
-
-
-// Вывод ошибок на экран
-function showInputError(formElement, inputElement, errorMessage) {
-  const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
-  inputElement.classList.add('popup__item_type_error');
-  errorElement.textContent = errorMessage;
-
+//
+const checkFormSubmit = (event, form) => {
+  event.preventDefault();
+  if (form.checkValidity()) {
+    form.reset();
+  }
 }
 
-// Скрытие ошибок на экране
-function hideInputError() {
+// Сброс тестов и стилей ошибок, если форма валидна
+const setInputValid = (inputErrorClass, errorMessage, input) => {
+  errorMessage.textContent = '';
+  input.classList.remove(inputErrorClass);
+}
 
+// Добавление тестов и стилей ошибок, если форма не валидна
+const setInputInvalid = (inputErrorClass, errorMessage, input) => {
+  errorMessage.textContent = input.validationMessage;
+  input.classList.add(inputErrorClass);
 }
 
 // Проверяем валидность поля
-function isValid() {
+const checkInputValidity = ({ inputErrorClass }, form, input) => {
+  const errorMessage = form.querySelector(`.${input.id}-error`);
 
+  if (!input.validity.valid) {
+    setInputInvalid(inputErrorClass, errorMessage, input);
+  } else {
+    setInputValid(inputErrorClass, errorMessage, input);
+  }
 }
 
+// Сброс стилей конпки и её активация, если форма валидна
+const setBtnValid = (inactiveBtnClass, btn) => {
+  btn.removeAttribute('disabled');
+  btn.classList.remove(inactiveBtnClass);
+}
 
-enableValidation({
-  formSelector: '.popup__form',
-  inputSelector: '.popup__input',
-  submitButtonSelector: '.popup__button',
-  inactiveButtonClass: 'popup__button_disabled',
-  inputErrorClass: 'popup__input_type_error',
-  errorClass: 'popup__error_visible'
-});
+// Добавление стилей конпки и её деактивация, если форма не валидна
+const setBtnInvalid = (inactiveBtnClass, btn) => {
+  btn.setAttribute('disabled', true);
+  btn.classList.add(inactiveBtnClass);
+}
+
+// Проверяем валидность кнопки отправки формы
+const checkBtnValidity = ({ inactiveBtnClass }, form, btn) => {
+  if (!form.checkValidity()) {
+    setBtnInvalid(inactiveBtnClass, btn);
+  } else {
+    setBtnValid(inactiveBtnClass, btn);
+  }
+}
+
+// Запуск валидации всей формы
+function enableValidation({ formSelector, inputSelector, submitBtnSelector, textErrorClass, ...rest }) {
+  const popupForms = document.querySelectorAll(formSelector);
+  popupForms.forEach((form) => {
+    form.addEventListener('submit', (event) => {
+      checkFormSubmit(event, form);
+    });
+
+    const popupInputs = form.querySelectorAll(inputSelector);
+    const popupBtn = form.querySelector(submitBtnSelector);
+
+    form.addEventListener('reset', () => {
+      setBtnValid(rest, popupBtn);
+    });
+
+    checkBtnValidity(rest, form, popupBtn);
+
+    popupInputs.forEach( (input) => {
+      input.addEventListener('input', (event) => {
+        checkInputValidity(rest, form, input);
+        checkBtnValidity(rest, form, popupBtn);
+      });
+
+      // TODO: нужен ли этот слушатель?
+      form.addEventListener('reset', () => {
+        setInputValid(rest, textErrorClass, input);
+      });
+    });
+  });
+}
+
+enableValidation(classSettings);

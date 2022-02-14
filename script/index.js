@@ -26,6 +26,16 @@ const initialCards = [
   }
 ];
 
+// Необходимые классы и селекторы элементов
+const classSettings = {
+  formSelector: '.popup__form',
+  inputSelector: '.popup__item',
+  submitBtnSelector: '.popup__save-button',
+  inactiveBtnClass: 'popup__save-button_disabled',
+  inputErrorClass: 'popup__item_type_error',
+  textErrorClass: 'popup__item-error'
+};
+
 // Элемент-обертка карточек
 const cards = document.querySelector('.elements');
 
@@ -97,6 +107,7 @@ function deleteCard(event) {
 
 // Открытие попапов
 function openPopup(element) {
+  enableValidation(classSettings);
   element.classList.add('popup_opened');
 }
 
@@ -108,9 +119,9 @@ function openPopupImage(event) {
 }
 
 function openPopupEdit() {
-  openPopup(popupEdit);
   popupProfileName.value = profileName.textContent;
   popupProfileAboutMe.value = profileAboutMe.textContent;
+  openPopup(popupEdit);
 }
 
 function openPopupAdd() {
@@ -121,10 +132,18 @@ function openPopupAdd() {
 
 // Закрытие попапов
 function addPopupCloseListeners(element) {
+  element.addEventListener('click', (event) => {
+    if (event.target === event.currentTarget) {
+      event.currentTarget.style.cursor = 'pointer';
+      closePopup(event);
+    }
+  });
+  // element.addEventListener('');
   element.querySelector('.popup__close-button').addEventListener('click', closePopup);
 }
 
 function closePopup(event) {
+  // enableValidation(classSettings);
   event.target.closest('.popup').classList.remove('popup_opened');
 }
 
