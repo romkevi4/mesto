@@ -1,4 +1,5 @@
-// Исходный массив для формирования карточек
+// =============================== Блок исходной информации ===============================
+// Массив для формирования карточек
 const initialCards = [
   {
     name: 'Сочи',
@@ -32,8 +33,7 @@ const classSettings = {
   inputSelector: '.popup__item',
   submitBtnSelector: '.popup__save-button',
   inactiveBtnClass: 'popup__save-button_disabled',
-  inputErrorClass: 'popup__item_type_error',
-  textErrorClass: 'popup__item-error'
+  inputErrorClass: 'popup__item_type_error'
 };
 
 // Элемент-обертка карточек
@@ -64,9 +64,12 @@ const popupPlaceLink = popupFormAddPlace.elements.popupLink;
 
 // Элементы попапа с картинками 
 const popupImage = document.querySelector('#popup-image');
-const popupImageItem = document.querySelector('.popup__image');
 
 
+
+
+// =============================== Блок фукнций ===============================
+// ---------- Управление карточками ----------
 // Получение наименований мест и ссылок на картинки из исходного массива
 function getCards(array) {
   array.reverse().forEach((item) => {
@@ -106,12 +109,13 @@ function deleteCard(event) {
   event.target.closest('.element').remove();
 }
 
+
+// ---------- Управление попапами ----------
 // Добавление слушателя события для закрытия попапа клавишей "Esc"
 function addKeyboardListener(element) {
   document.addEventListener('keydown', (event) => {
     if (event.key === 'Escape') {
-      console.log('событие');
-      closePopup(event);
+      closePopup(element);
     }
   });
 }
@@ -120,22 +124,30 @@ function addKeyboardListener(element) {
 function addOverlayListener(element) {
   element.addEventListener('click', (event) => {
     if (event.target === event.currentTarget) {
-      closePopup(event);
+      closePopup(element);
     }
+  });
+}
+
+// Добавление слушателя события для закрытия попапа кликом на кнопку закрытия
+function addCloseBtnListener(element) {
+  element.querySelector('.popup__close-button').addEventListener('click', () => {
+    closePopup(element);
   });
 }
 
 // Открытие попапов
 function openPopup(element) {
-  enableValidation(classSettings);
   addKeyboardListener(element);
   addOverlayListener(element);
+  addCloseBtnListener(element);
   element.classList.add('popup_opened');
 }
 
 function openPopupImage(event) {
-  popupImageItem.src = event.target.src;
-  popupImageItem.alt = event.target.alt;
+  const activePopupImage = document.querySelector('.popup__image');
+  activePopupImage.src = event.target.src;
+  activePopupImage.alt = event.target.alt;
   document.querySelector('.popup__text').textContent = event.target.closest('.element').querySelector('.element__title').textContent;
   openPopup(popupImage);
 }
@@ -152,33 +164,34 @@ function openPopupAdd() {
   openPopup(popupAdd);
 }
 
-// Проверка положения курсора мыши
+// Проверка положения курсора мыши на попапе
 function checkingCursorPosition(element) {
   element.addEventListener('mouseover', (evt) => {
-    if (!(evt.target === element.querySelector('.popup__form'))) {
+    const activePopupForm = element.querySelector('.popup__form');
+    if (evt.target !== activePopupForm) {
       element.style.cursor = 'pointer';
 
-    } else if (evt.target === element.querySelector('.popup__form') || evt.target === element.querySelector('.popup__title')) {
-      element.querySelector('.popup__form').style.cursor = 'default';
+    } else if (evt.target === activePopupForm || evt.target === element.querySelector('.popup__title')) {
+      activePopupForm.style.cursor = 'default';
     }
   });
 
   element.addEventListener('mouseover', (evt) => {
-    if (!(evt.target === element.querySelector('.popup__image'))) {
+    const activePopupImage = element.querySelector('.popup__image');
+    if (evt.target !== activePopupImage) {
       element.style.cursor = 'pointer';
 
-    } else if (evt.target === element.querySelector('.popup__image')) {
-      element.querySelector('.popup__image').style.cursor = 'default';
+    } else if (evt.target === activePopupImage) {
+      activePopupImage.style.cursor = 'default';
     }
   });
 }
 
 // Удаление слушателя события для закрытия попап клавишей "Esc"
 function deleteKeyboardListener(element) {
-  element.removeEventListener('keydown', (event) => {
+  document.removeEventListener('keydown', (event) => {
     if (event.key === 'Escape') {
-      console.log('событие');
-      closePopup(event);
+      closePopup(element);
     }
   });
 }
@@ -187,43 +200,45 @@ function deleteKeyboardListener(element) {
 function deleteOverlayListener(element) {
   element.removeEventListener('click', (event) => {
     if (event.target === event.currentTarget) {
-      closePopup(event);
+      closePopup(element);
     }
   });
 }
 
+// Удаление слушателя события для закрытия попапа кликом на кнопку закрытия
+function deleteCloseBtnListener(element) {
+  element.querySelector('.popup__close-button').removeEventListener('click', () => {
+    closePopup(element);
+  });
+}
 
-// Закрытие попапов
+// Удаление слушателей событий попапов
 function addPopupCloseListeners(element) {
   checkingCursorPosition(element);
-
-  element.removeEventListener('keydown', (event) => {
-    if (event.key === 'Escape') {
-      console.log('событие');
-      closePopup(event);
-    }
-  });
-
-  element.addEventListener('click', (event) => {
-    if (event.target === event.currentTarget) {
-      closePopup(event);
-    }
-  });
-
-  element.querySelector('.popup__close-button').addEventListener('click', closePopup);
+  deleteKeyboardListener(element);
+  deleteOverlayListener(element);
+  deleteCloseBtnListener(element);
 }
 
-function closePopup(event) {
-  // enableValidation(classSettings);
-  event.target.closest('.popup').classList.remove('popup_opened');
+// Закрытие попапов
+function closePopup(element) {
+  if (element === popupEdit || element === popupAdd) {
+    element.querySelector('.popup__item').classList.remove('popup__item_type_error');
+    element.querySelector('.popup__item-error').textContent = '';
+    element.querySelector('.popup__save-button').classList.add('popup__save-button_disabled');
+  }
+  element.classList.remove('popup_opened');
+  enableValidation(classSettings);
 }
 
+
+// ---------- Управление отправкой форм ----------
 // Сохранение формы редактирования профиля
 function saveFormEdit(event) {
   event.preventDefault();
   profileName.textContent = popupProfileName.value;
   profileAboutMe.textContent = popupProfileAboutMe.value;
-  closePopup(event);
+  closePopup(event.target.closest('.popup'));
 }
 
 // Сохранение формы добавления новой карточки
@@ -231,21 +246,28 @@ function saveFormAdd(event) {
   event.preventDefault();
   const iCard = createCard(popupPlaceTitle.value, popupPlaceLink.value);
   renderCard(iCard, cards);
-  closePopup(event);
+  closePopup(event.target.closest('.popup'));
 }
 
 
-// События открытия попапов и сохранения форм
+
+
+// =============================== Блок основных событий ===============================
+// События открытия попапов
 profileEditBtn.addEventListener('click', openPopupEdit);
 placeAddBtn.addEventListener('click', openPopupAdd);
+
 
 // События закрытия попапов
 addPopupCloseListeners(popupEdit);
 addPopupCloseListeners(popupAdd);
 addPopupCloseListeners(popupImage);
 
+
 // События сохранения форм
 popupFormEditingProfile.addEventListener('submit', saveFormEdit);
 popupFormAddPlace.addEventListener('submit', saveFormAdd);
 
+
+// Старт отрисовки карточек
 getCards(initialCards);
