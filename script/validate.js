@@ -63,7 +63,6 @@ function enableValidation({ formSelector, inputSelector, submitBtnSelector, ...r
   popupForms.forEach((form) => {
     form.addEventListener('submit', (event) => {
       checkFormSubmit(event, form);
-      console.log(event);
     });
 
     const popupInputs = form.querySelectorAll(inputSelector);
