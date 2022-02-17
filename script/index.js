@@ -141,20 +141,33 @@ function openPopupAdd() {
 }
 
 // Очистка форм попапов
-function clearPopupForm(element) {
-  if (!element.classList.contains('popup_opacity')) {
-    element.querySelector('.popup__item').classList.remove('popup__item_type_error');
-    element.querySelector('.popup__item-error').textContent = '';
-    element.querySelector('.popup__save-button').setAttribute('disabled', '');
-    element.querySelector('.popup__save-button').classList.add('popup__save-button_disabled');
-  }
+function clearPopupForm(popup) {
+  const childrenPopupElements = Array.from(popup.querySelector('.popup__container').children);
+
+  childrenPopupElements.forEach((element) => {
+    if (element.classList.contains('popup__form')) {
+      const popupInputs = element.querySelectorAll('.popup__item');
+      popupInputs.forEach((input) => {
+        input.classList.remove('popup__item_type_error');
+      });
+
+      const popupTextErrors = element.querySelectorAll('.popup__item-error');
+      popupTextErrors.forEach((text) => {
+        text.textContent = '';
+      })
+
+      const popupBtn = element.querySelector('.popup__save-button');
+      popupBtn.setAttribute('disabled', '');
+      popupBtn.classList.add('popup__save-button_disabled');
+    }
+  });
 }
 
 // Закрытие попапов
-function closePopup(element) {
-  clearPopupForm(element);
+function closePopup(popup) {
+  clearPopupForm(popup);
 
-  element.classList.remove('popup_opened');
+  popup.classList.remove('popup_opened');
   document.removeEventListener('keydown', closePopupByEscape);
 }
 
