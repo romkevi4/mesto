@@ -67,6 +67,8 @@ const popupPlaceLink = popupFormAddPlace.elements.popupLink;
 
 // Элементы попапа с картинками 
 const popupImage = document.querySelector('#popup-image');
+const activePopupImage = popupImage.querySelector('.popup__image');
+const activePopupText = popupImage.querySelector('.popup__text');
 
 
 
@@ -121,10 +123,9 @@ function openPopup(element) {
 }
 
 function openPopupImage(event) {
-  const activePopupImage = document.querySelector('.popup__image');
   activePopupImage.src = event.target.src;
   activePopupImage.alt = event.target.alt;
-  document.querySelector('.popup__text').textContent = event.target.closest('.element').querySelector('.element__title').textContent;
+  activePopupText.textContent = event.target.closest('.element').querySelector('.element__title').textContent;
   openPopup(popupImage);
 }
 
@@ -165,8 +166,6 @@ function clearPopupForm(popup) {
 
 // Закрытие попапов
 function closePopup(popup) {
-  clearPopupForm(popup);
-
   popup.classList.remove('popup_opened');
   document.removeEventListener('keydown', closePopupByEscape);
 }
@@ -175,6 +174,7 @@ function closePopupByEscape(event) {
   if (event.key === 'Escape') {
     const openedPopup = document.querySelector('.popup_opened');
     closePopup(openedPopup);
+    clearPopupForm(openedPopup);
   }
 }
 
@@ -240,6 +240,7 @@ popups.forEach((popup) => {
   popup.addEventListener('click', (event) => {
     if (event.target === event.currentTarget || event.target.classList.contains('popup__close-button')) {
       closePopup(popup);
+      clearPopupForm(popup);
     }
   });
 });

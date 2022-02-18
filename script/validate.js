@@ -10,7 +10,7 @@ const checkFormSubmit = (event, form) => {
 
 // ---------- Проверка правильности заполнения полей формы ----------
 // Сброс тестов и стилей ошибок, если форма валидна
-const setInputValid = ({ inputErrorClass }, errorMessage, input) => {
+const setInputValid = (inputErrorClass, errorMessage, input) => {
   errorMessage.textContent = '';
   input.classList.remove(inputErrorClass);
 }
@@ -27,6 +27,7 @@ const checkInputValidity = ({ inputErrorClass }, form, input) => {
 
   if (!input.validity.valid) {
     setInputInvalid(inputErrorClass, errorMessage, input);
+
   } else {
     setInputValid(inputErrorClass, errorMessage, input);
   }
@@ -50,6 +51,7 @@ const setBtnInvalid = ({ inactiveBtnClass }, btn) => {
 const checkBtnValidity = ({ inactiveBtnClass }, form, btn) => {
   if (form.checkValidity()) {
     setBtnValid(inactiveBtnClass, btn);
+
   } else {
     setBtnInvalid(inactiveBtnClass, btn);
   }
@@ -75,7 +77,7 @@ function enableValidation({ formSelector, inputSelector, submitBtnSelector, ...r
     checkBtnValidity(rest, form, popupBtn);
 
     popupInputs.forEach( (input) => {
-      input.addEventListener('input', (event) => {
+      input.addEventListener('input', () => {
         checkInputValidity(rest, form, input);
         checkBtnValidity(rest, form, popupBtn);
       });
