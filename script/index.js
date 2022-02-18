@@ -133,12 +133,14 @@ function openPopupEdit() {
   popupProfileName.value = profileName.textContent;
   popupProfileAboutMe.value = profileAboutMe.textContent;
   openPopup(popupEdit);
+  clearPopupForm(popupEdit);
 }
 
 function openPopupAdd() {
   popupPlaceTitle.value = '';
   popupPlaceLink.value = '';
   openPopup(popupAdd);
+  clearPopupForm(popupAdd);
 }
 
 // Очистка форм попапов
@@ -174,7 +176,6 @@ function closePopupByEscape(event) {
   if (event.key === 'Escape') {
     const openedPopup = document.querySelector('.popup_opened');
     closePopup(openedPopup);
-    clearPopupForm(openedPopup);
   }
 }
 
@@ -240,7 +241,6 @@ popups.forEach((popup) => {
   popup.addEventListener('click', (event) => {
     if (event.target === event.currentTarget || event.target.classList.contains('popup__close-button')) {
       closePopup(popup);
-      clearPopupForm(popup);
     }
   });
 });
