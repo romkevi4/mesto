@@ -200,7 +200,7 @@ function saveFormAdd(event) {
     const iCard = new Card(newCard, '#elements');
     const iCardElement = iCard.fillCard();
     renderCard(iCardElement, cards);
-    
+
     closePopup(event.target.closest('.popup'));
 }
 
