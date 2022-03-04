@@ -39,9 +39,6 @@ const classSettings = {
 // Элемент-обертка карточек
 const cards = document.querySelector('.elements');
 
-// Элементы темплейт для формирования карточек
-const cardTemplate = document.querySelector('#elements').content;
-
 // Элементы блока редактирования профиля
 const profileEditBtn = document.querySelector('.profile__edit-button');
 const profileName = document.querySelector('.profile__name');
@@ -69,78 +66,50 @@ const popupPlaceLink = popupFormAddPlace.elements.popupLink;
 const popupImage = document.querySelector('#popup-image');
 const activePopupImage = popupImage.querySelector('.popup__image');
 const activePopupText = popupImage.querySelector('.popup__text');
+export { popupImage, activePopupImage, activePopupText };
 
 
 
 
 // =============================== Блок фукнций ===============================
 // ---------- Управление карточками ----------
-// Получение наименований мест и ссылок на картинки из исходного массива
-function getCards(array) {
-    array.reverse().forEach((item) => {
-        const iCard = createCard(item.name, item.link);
-        renderCard(iCard, cards);
-    });
-}
-
 // Создание новой карточки
-function createCard(name, link) {
-    const newCard = cardTemplate.cloneNode(true);
-    newCard.querySelector('.element__image').src = link;
-    newCard.querySelector('.element__image').alt = name;
-    newCard.querySelector('.element__title').textContent = name;
-    addCardListeners(newCard);
-    return newCard;
-}
-
-function addCardListeners(element) {
-    element.querySelector('.element__like-button').addEventListener('click', chooseLikeCard);
-    element.querySelector('.element__delete-button').addEventListener('click', deleteCard);
-    element.querySelector('.element__image-button').addEventListener('click', openPopupImage);
-}
+import { Card } from './Card.js';
 
 // Визуализация карточки на странице
 function renderCard(element, wrapper) {
     wrapper.prepend(element);
 }
 
-// Выбор понравившихся карточек
-function chooseLikeCard(event) {
-    event.target.classList.toggle('element__like-button_active');
-}
-
-// Удаление карточки
-function deleteCard(event) {
-    event.target.closest('.element').remove();
+// Получение наименований мест и ссылок на картинки из исходного массива
+function getCards(array) {
+    array.reverse().forEach((item) => {
+        const iCard = new Card(item, '#elements');
+        const iCardElement = iCard.fillCard();
+        renderCard(iCardElement, cards);
+    });
 }
 
 
 // ---------- Управление попапами ----------
 // Открытие попапов
-function openPopup(element) {
+export function openPopup(element) {
     element.classList.add('popup_opened');
     document.addEventListener('keydown', closePopupByEscape);
-}
-
-function openPopupImage(event) {
-    activePopupImage.src = event.target.src;
-    activePopupImage.alt = event.target.alt;
-    activePopupText.textContent = event.target.closest('.element').querySelector('.element__title').textContent;
-    openPopup(popupImage);
 }
 
 function openPopupEdit() {
     popupProfileName.value = profileName.textContent;
     popupProfileAboutMe.value = profileAboutMe.textContent;
     openPopup(popupEdit);
-    clearPopupForm(popupEdit);
+    // clearPopupForm(popupEdit);
 }
 
 function openPopupAdd() {
     popupPlaceTitle.value = '';
     popupPlaceLink.value = '';
     openPopup(popupAdd);
-    clearPopupForm(popupAdd);
+    // clearPopupForm(popupAdd);
 }
 
 // Очистка форм попапов
@@ -212,16 +181,26 @@ function checkingCursorPosition(popup) {
 // Сохранение формы редактирования профиля
 function saveFormEdit(event) {
     event.preventDefault();
+
     profileName.textContent = popupProfileName.value;
     profileAboutMe.textContent = popupProfileAboutMe.value;
+
     closePopup(event.target.closest('.popup'));
 }
 
 // Сохранение формы добавления новой карточки
 function saveFormAdd(event) {
     event.preventDefault();
-    const iCard = createCard(popupPlaceTitle.value, popupPlaceLink.value);
-    renderCard(iCard, cards);
+
+    const newCard = {
+        name: popupPlaceTitle.value,
+        link: popupPlaceLink.value
+    }
+
+    const iCard = new Card(newCard, '#elements');
+    const iCardElement = iCard.fillCard();
+    renderCard(iCardElement, cards);
+    
     closePopup(event.target.closest('.popup'));
 }
 
