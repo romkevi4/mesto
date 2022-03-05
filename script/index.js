@@ -29,7 +29,6 @@ const initialCards = [
 
 // Необходимые классы и селекторы элементов
 const classSettings = {
-    formSelector: '.popup__form',
     inputSelector: '.popup__item',
     submitBtnSelector: '.popup__save-button',
     inactiveBtnClass: 'popup__save-button_disabled',
@@ -237,14 +236,11 @@ getCards(initialCards);
 
 
 // =============================== Блок валидации форм ===============================
+// Создание валидации форм
 import { FormValidator } from './FormValidator.js';
 
 // Старт процесса валидации
 forms.forEach((form) => {
     const iForm = new FormValidator(classSettings, form);
     iForm.enableValidation();
-    // console.log(form);
-    // console.log(iForm);
 });
-
-

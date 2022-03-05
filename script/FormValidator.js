@@ -1,7 +1,6 @@
 // =============================== Валидация форм ===============================
 export class FormValidator {
     constructor(data, form) {
-        this._formSelector = data.formSelector;
         this._inputSelector = data.inputSelector;
         this._submitBtnSelector = data.submitBtnSelector;
         this._inactiveBtnClass = data.inactiveBtnClass;
@@ -20,7 +19,7 @@ export class FormValidator {
 
 
     // ---------- Проверка правильности заполнения полей формы ----------
-    // Сброс тестов и стилей ошибок, если форма валидна
+    // Сброс текстов и стилей ошибок, если форма валидна
     _setInputValid() {
         const errorMessage = this._form.querySelector(`.${this._element.id}-error`);
         errorMessage.textContent = '';
@@ -28,7 +27,7 @@ export class FormValidator {
         this._element.classList.remove(this._inputErrorClass);
     }
 
-    // Добавление тестов и стилей ошибок, если форма не валидна
+    // Добавление текстов и стилей ошибок, если форма не валидна
     _setInputInvalid() {
         const errorMessage = this._form.querySelector(`.${this._element.id}-error`);
         errorMessage.textContent = this._element.validationMessage;
@@ -90,5 +89,3 @@ export class FormValidator {
         });
     }
 }
-
-
