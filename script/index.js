@@ -50,6 +50,9 @@ const placeAddBtn = document.querySelector('.profile__add-button');
 // Все попапы
 const popups = document.querySelectorAll('.popup');
 
+// Все формы
+const forms = document.querySelectorAll('.popup__form');
+
 // Элементы попапа редактирования профиля
 const popupEdit = document.querySelector('#popup-edit');
 const popupFormEditingProfile = popupEdit.querySelector('.popup__form');
@@ -102,14 +105,14 @@ function openPopupEdit() {
     popupProfileName.value = profileName.textContent;
     popupProfileAboutMe.value = profileAboutMe.textContent;
     openPopup(popupEdit);
-    // clearPopupForm(popupEdit);
+    clearPopupForm(popupEdit);
 }
 
 function openPopupAdd() {
     popupPlaceTitle.value = '';
     popupPlaceLink.value = '';
     openPopup(popupAdd);
-    // clearPopupForm(popupAdd);
+    clearPopupForm(popupAdd);
 }
 
 // Очистка форм попапов
@@ -212,7 +215,6 @@ function saveFormAdd(event) {
 profileEditBtn.addEventListener('click', openPopupEdit);
 placeAddBtn.addEventListener('click', openPopupAdd);
 
-
 // События закрытия попапов
 popups.forEach((popup) => {
     checkingCursorPosition(popup);
@@ -224,11 +226,25 @@ popups.forEach((popup) => {
     });
 });
 
-
 // События сохранения форм
 popupFormEditingProfile.addEventListener('submit', saveFormEdit);
 popupFormAddPlace.addEventListener('submit', saveFormAdd);
 
-
 // Старт отрисовки карточек
 getCards(initialCards);
+
+
+
+
+// =============================== Блок валидации форм ===============================
+import { FormValidator } from './FormValidator.js';
+
+// Старт процесса валидации
+forms.forEach((form) => {
+    const iForm = new FormValidator(classSettings, form);
+    iForm.enableValidation();
+    // console.log(form);
+    // console.log(iForm);
+});
+
+
