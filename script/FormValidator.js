@@ -1,10 +1,10 @@
-// =============================== Валидация форм ===============================
+// =============================== Формирование класса валидации формы ===============================
 export class FormValidator {
     constructor(data, form) {
-        this._inputSelector = data.inputSelector;
-        this._submitBtnSelector = data.submitBtnSelector;
         this._inactiveBtnClass = data.inactiveBtnClass;
         this._inputErrorClass = data.inputErrorClass;
+        this._inputList = form.querySelectorAll(data.inputSelector);
+        this._submitBtn = form.querySelector(data.submitBtnSelector);
         this._form = form;
     }
 
@@ -20,42 +20,38 @@ export class FormValidator {
 
     // ---------- Проверка правильности заполнения полей формы ----------
     // Сброс текстов и стилей ошибок, если форма валидна
-    _setInputValid() {
-        const errorMessage = this._form.querySelector(`.${this._element.id}-error`);
+    _setInputValid(input) {
+        const errorMessage = this._form.querySelector(`.${input.id}-error`);
         errorMessage.textContent = '';
 
-        this._element.classList.remove(this._inputErrorClass);
+        input.classList.remove(this._inputErrorClass);
     }
 
     // Добавление текстов и стилей ошибок, если форма не валидна
-    _setInputInvalid() {
-        const errorMessage = this._form.querySelector(`.${this._element.id}-error`);
-        errorMessage.textContent = this._element.validationMessage;
+    _setInputInvalid(input) {
+        const errorMessage = this._form.querySelector(`.${input.id}-error`);
+        errorMessage.textContent = input.validationMessage;
 
-        this._element.classList.add(this._inputErrorClass);
+        input.classList.add(this._inputErrorClass);
     }
 
     // Проверка валидности
-    _checkInputValidity() {
-        !this._element.validity.valid ? this._setInputInvalid() : this._setInputValid();
+    _checkInputValidity(input) {
+        !input.validity.valid ? this._setInputInvalid(input) : this._setInputValid(input);
     }
 
 
     // ---------- Изменение состояния кнопки отправки формы ----------
     // Активация кнопки, если форма валидна
     _setBtnValid() {
-        const popupBtn = this._form.querySelector(this._submitBtnSelector);
-
-        popupBtn.removeAttribute('disabled');
-        popupBtn.classList.remove(this._inactiveBtnClass);
+        this._submitBtn.removeAttribute('disabled');
+        this._submitBtn.classList.remove(this._inactiveBtnClass);
     }
 
     // Деактивация кнопки, если форма не валидна
     _setBtnInvalid() {
-        const popupBtn = this._form.querySelector(this._submitBtnSelector);
-
-        popupBtn.setAttribute('disabled', '');
-        popupBtn.classList.add(this._inactiveBtnClass);
+        this._submitBtn.setAttribute('disabled', '');
+        this._submitBtn.classList.add(this._inactiveBtnClass);
     }
 
     // Проверка валидности кнопки отправки формы
@@ -71,21 +67,28 @@ export class FormValidator {
             this._checkFormSubmit(event);
         });
 
-        const popupInputs = this._form.querySelectorAll(this._inputSelector);
-
         this._form.addEventListener('reset', () => {
             this._setBtnInvalid();
         });
 
         this._checkBtnValidity();
 
-        popupInputs.forEach( (input) => {
+        this._inputList.forEach( (input) => {
             input.addEventListener('input', () => {
-                this._element = input;
-
-                this._checkInputValidity();
+                this._checkInputValidity(input);
                 this._checkBtnValidity();
             });
         });
+    }
+
+
+    // ---------- Сброс ошибок ----------
+    // Очистка текстов и стилей ошибок, деактивация кнопки
+    clearForm() {
+        this._inputList.forEach((input) => {
+            this._setInputValid(input);
+        });
+
+        this._setBtnInvalid();
     }
 }

@@ -1,5 +1,6 @@
+// ---------- Формирование класса карточки ----------
 // Импорты из модуля index.js
-import { openPopup, popupImage, activePopupImage, activePopupText } from './index.js';
+import { popupImage, activePopupImage, activePopupText, openPopup } from './utils.js';
 
 // Создание новой карточки
 export class Card {
@@ -25,8 +26,10 @@ export class Card {
         this._element = this._getCardFromTemplate();
         this._addCardListeners();
 
-        this._element.querySelector('.element__image').src = this._image;
-        this._element.querySelector('.element__image').alt = this._name;
+        const elementImage = this._element.querySelector('.element__image');
+
+        elementImage.src = this._image;
+        elementImage.alt = this._name;
         this._element.querySelector('.element__title').textContent = this._name;
 
         return this._element;
@@ -54,7 +57,8 @@ export class Card {
 
     // Удаление карточки
     _deleteCard() {
-        this._element.querySelector('.element__delete-button').closest('.element').remove();
+        this._element.remove();
+        this._element = null;
     }
 
     // Открытие попапа с картинкой
