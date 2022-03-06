@@ -1,5 +1,5 @@
 // ---------- Формирование класса карточки ----------
-// Импорты из модуля index.js
+// Импорты из модуля utils.js
 import { popupImage, activePopupImage, activePopupText, openPopup } from './utils.js';
 
 // Создание новой карточки
