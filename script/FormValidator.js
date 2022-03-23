@@ -1,10 +1,10 @@
 // =============================== Формирование класса валидации формы ===============================
-export class FormValidator {
-    constructor(data, form) {
-        this._inactiveBtnClass = data.inactiveBtnClass;
-        this._inputErrorClass = data.inputErrorClass;
-        this._inputList = form.querySelectorAll(data.inputSelector);
-        this._submitBtn = form.querySelector(data.submitBtnSelector);
+export default class FormValidator {
+    constructor({ inactiveBtnClass, inputErrorClass, inputSelector, submitBtnSelector }, form) {
+        this._inactiveBtnClass = inactiveBtnClass;
+        this._inputErrorClass = inputErrorClass;
+        this._inputList = form.querySelectorAll(inputSelector);
+        this._submitBtn = form.querySelector(submitBtnSelector);
         this._form = form;
     }
 

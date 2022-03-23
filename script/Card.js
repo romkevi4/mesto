@@ -1,15 +1,16 @@
-// ---------- Формирование класса карточки ----------
-// Импорты из модуля utils.js
-import { popupImage, activePopupImage, activePopupText, openPopup } from './utils.js';
 
-// Создание новой карточки
-export class Card {
+// =============================== Формирование класса карточки ===============================
+// import { popupImage, activePopupImage, activePopupText, openPopup } from './utils.js';
+
+export default class Card {
     constructor(data, cardSelector) {
         this._image = data.link;
         this._name = data.name;
         this._cardSelector = cardSelector;
     }
 
+
+    // ---------- Создание новой карточки ----------
     // Получение разметки новой карточки из template
     _getCardFromTemplate() {
         const newCard = document
@@ -62,10 +63,10 @@ export class Card {
     }
 
     // Открытие попапа с картинкой
-    _openPopupImage() {
-        activePopupImage.src = this._image;
-        activePopupImage.alt = this._name;
-        activePopupText.textContent = this._name;
-        openPopup(popupImage);
-    }
+    // _openPopupImage() {
+    //     activePopupImage.src = this._image;
+    //     activePopupImage.alt = this._name;
+    //     activePopupText.textContent = this._name;
+    //     openPopup(popupImage);
+    // }
 }
