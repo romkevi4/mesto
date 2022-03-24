@@ -1,12 +1,10 @@
-
 // =============================== Формирование класса карточки ===============================
-// import { popupImage, activePopupImage, activePopupText, openPopup } from './utils.js';
-
 export default class Card {
-    constructor(data, cardSelector) {
+    constructor({ data, handleCardClick }, cardSelector) {
         this._image = data.link;
         this._name = data.name;
         this._cardSelector = cardSelector;
+        this._handleCardClick = handleCardClick;
     }
 
 
@@ -47,7 +45,7 @@ export default class Card {
         });
 
         this._element.querySelector('.element__image-button').addEventListener('click', () => {
-            this._openPopupImage();
+            this._handleCardClick(this._image, this._name);
         });
     }
 
@@ -61,12 +59,4 @@ export default class Card {
         this._element.remove();
         this._element = null;
     }
-
-    // Открытие попапа с картинкой
-    // _openPopupImage() {
-    //     activePopupImage.src = this._image;
-    //     activePopupImage.alt = this._name;
-    //     activePopupText.textContent = this._name;
-    //     openPopup(popupImage);
-    // }
 }

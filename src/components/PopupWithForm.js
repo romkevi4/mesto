@@ -36,6 +36,7 @@ export default class PopupWithForm extends Popup {
     // Закрытие попапа
     close() {
         super.close();
+        this._popupForm.reset();
     }
 
     // Удаление класса у попапа для его закрытия
@@ -55,50 +56,46 @@ export default class PopupWithForm extends Popup {
 
 
     // ---------- Управление событиями ----------
-    // Добавление событий закрытия попапа
+    // Добавление событий
     setEventListeners() {
         super.setEventListeners();
 
-        // this._popupForm = this._popup.querySelector(this._popupFormSelector);
-
-
-        this._popupForm.addEventListener('submit', (event) => {
-            event.preventDefault();
-            // this._saveForm(this._getInputValues());
-            const inputValues = this._getInputValues();
-            this._saveForm.bind(inputValues);
-        });
-    }
-
-    // Удаление событий закрытия попапа
-    deleteEventListeners() {
-        super.deleteEventListeners();
-
-        this._popupForm.removeEventListener('submit', (event) => {
-            event.preventDefault();
-            const inputValues = this._getInputValues();
-            this._saveForm.bind(inputValues);
-        });
-
-    }
-
-    // Добавление события для проверки положения курсора мыши на попапе
-    setCheckingCursorPosition() {
         this._popup.addEventListener('mouseover', (event) => {
             this._changeCursorView(event, this._popupForm);
         });
+
+        this._popupForm.addEventListener('input', () => {
+            this._inputValues = this._getInputValues();
+        });
+
+        this._popupForm.addEventListener('submit', (event) => {
+            event.preventDefault();
+            this._saveForm(this._inputValues);
+        });
     }
 
-    // Удаление события для проверки положения курсора мыши на попапе
-    deleteCheckingCursorPosition() {
+    // Удаление событий
+    deleteEventListeners() {
+        super.deleteEventListeners();
+
         this._popup.removeEventListener('mouseover', (event) => {
             this._changeCursorView(event, this._popupForm);
         });
+
+        this._popupForm.removeEventListener('input', () => {
+            this._inputValues = this._getInputValues();
+        });
+
+        this._popupForm.removeEventListener('submit', (event) => {
+            event.preventDefault();
+            this._saveForm(this._inputValues);
+        });
+
     }
 
 
     // ---------- Управление отображением курсора на странице ----------
-    // Выбор вида корсора
+    // Выбор вида курсора
     _changeCursorView(event, activeElement) {
         if (event.target !== activeElement) {
             this._popup.style.cursor = 'pointer';
@@ -118,7 +115,7 @@ export default class PopupWithForm extends Popup {
         this._inputs.forEach((input) => {
             this._inputData[input.name] = input.value;
         });
-        // console.log(this._inputData);
+
         return this._inputData;
     }
 }

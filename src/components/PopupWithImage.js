@@ -7,14 +7,12 @@ export default class PopupWithImage extends Popup {
             popupCloseBtnSelector,
             popupImageSelector,
             popupTextSelector
-        }, {
-        popup,
-        openPopupImage
-    }) {
+        },
+        popup
+    ) {
         super({ popupOpenedSelector, popupCloseBtnSelector }, popup);
         this._popupImage = document.querySelector(popupImageSelector);
         this._popupText = document.querySelector(popupTextSelector);
-        this._openPopupImage = openPopupImage;
     }
 
 
@@ -22,12 +20,7 @@ export default class PopupWithImage extends Popup {
     // Открытие попапа
     open() {
         super.open();
-
-        this._popupImage.src = this._image;
-        this._popupImage.alt = this._name;
-        this._popupText.textContent = this._name;
-        // openPopup(popupImage);
-}
+    }
 
     // Добавление класса попапу для его открытия
     _addPopupClass() {
@@ -58,25 +51,19 @@ export default class PopupWithImage extends Popup {
 
 
     // ---------- Управление событиями ----------
-    // Добавление событий закрытия попапа
+    // Добавление событий
     setEventListeners() {
         super.setEventListeners();
-    }
 
-    // Удаление событий закрытия попапа
-    deleteEventListeners() {
-        super.deleteEventListeners();
-    }
-
-    // Добавление события для проверки положения курсора мыши на попапе
-    setCheckingCursorPosition() {
         this._popup.addEventListener('mouseover', (event) => {
             this._changeCursorView(event, this._popupImage);
         });
     }
 
-    // Удаление события для проверки положения курсора мыши на попапе
-    deleteCheckingCursorPosition() {
+    // Удаление событий
+    deleteEventListeners() {
+        super.deleteEventListeners();
+
         this._popup.removeEventListener('mouseover', (event) => {
             this._changeCursorView(event, this._popupImage);
         });
@@ -84,8 +71,16 @@ export default class PopupWithImage extends Popup {
 
 
     // ---------- Управление отображением курсора на странице ----------
-    // Выбор вида корсора
+    // Выбор вида курсора
     _changeCursorView(event, activeElement) {
         super._changeCursorView(event, activeElement);
+    }
+
+
+    // ---------- Передача данных картинки в попап ----------
+    setElementValues(activeImage, activeTitle) {
+        this._popupImage.src = activeImage;
+        this._popupImage.alt = activeTitle;
+        this._popupText.textContent = activeTitle;
     }
 }
