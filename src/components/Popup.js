@@ -11,7 +11,6 @@ export default class Popup {
     // Открытие попапа
     open() {
         this._addPopupClass();
-        this.setEventListeners();
     }
 
     // Добавление класса попапу для его открытия
@@ -50,35 +49,15 @@ export default class Popup {
     // ---------- Управление событиями ----------
     // Добавление событий закрытия попапа
     setEventListeners() {
-        this._popup.addEventListener('click', (event) => {
-            this._handleClickClose(event);
-        });
+        this._popup.addEventListener('click', this._handleClickClose);
 
-        document.addEventListener('keydown', (event) => {
-            this._handleEscClose(event);
-        });
+        document.addEventListener('keydown', this._handleEscClose);
     }
 
     // Удаление событий закрытия попапа
     deleteEventListeners() {
-        this._popup.removeEventListener('click', (event) => {
-            this._handleClickClose(event);
-        });
+        this._popup.removeEventListener('click', this._handleClickClose);
 
-        document.removeEventListener('keydown', (event) => {
-            this._handleEscClose(event);
-        });
-    }
-
-
-    // ---------- Управление отображением курсора на странице ----------
-    // Выбор вида корсора
-    _changeCursorView(event, activeElement) {
-        if (event.target !== activeElement) {
-            this._popup.style.cursor = 'pointer';
-
-        } else if (event.target === activeElement) {
-            activeElement.style.cursor = 'default';
-        }
+        document.removeEventListener('keydown', this._handleEscClose);
     }
 }
