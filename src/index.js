@@ -1,23 +1,26 @@
 // =============================== Блок исходной информации ===============================
-// ---------- Импорт данных из других модулей .js ----------
+// ---------- Импорт данных ----------
 // Исходные данные
-import { initialCards, classSettings } from '../components/initialData.js';
+import { initialCards, classSettings } from './components/initialData.js';
 
 // Создание новой карточки
-import Card from '../components/Card.js';
+import Card from './components/Card.js';
 
 // Создание валидации форм
-import FormValidator from '../components/FormValidator.js';
+import FormValidator from './components/FormValidator.js';
 
 // Управление попапами
-import PopupWithForm from '../components/PopupWithForm.js';
-import PopupWithImage from '../components/PopupWithImage.js';
+import PopupWithForm from './components/PopupWithForm.js';
+import PopupWithImage from './components/PopupWithImage.js';
 
 // Отрисовка готовых элементов на странице
-import Section from '../components/Section.js';
+import Section from './components/Section.js';
 
 // Отображение информации о пользователе
-import UserInfo from '../components/UserInfo.js';
+import UserInfo from './components/UserInfo.js';
+
+// Стили CSS
+import './pages/index.css';
 
 
 // ---------- Получение элементов DOM ----------

@@ -4,14 +4,13 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="./pages/index.css">
   <title>Mesto</title>
 </head>
 <body class="root">
   <div class="page">
     <header class="header">
       <img 
-        src="./images/header/__logo/header-logo.svg"
+        src="<%=require('./images/header/__logo/header-logo.svg')%>"
         alt="Изображен логотип Mesto" 
         class="header__logo"
       >
@@ -21,7 +20,7 @@
       <section class="profile">
         <div class="profile__card">
           <img 
-            src="./images/profile/__avatar/profile-avatar.png"
+            src="<%=require('./images/profile/__avatar/profile-avatar.png')%>"
             alt="На аватарке изображен Жак-Ив Кусто, французский исследователь Мирового океана"
             class="profile__avatar"
           >       
@@ -140,7 +139,5 @@
       </article>
     </template>
   </div> <!-- .page -->
-
-  <script type="module" src="./pages/index.js"></script>
 </body>
 </html>
