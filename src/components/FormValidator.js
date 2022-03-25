@@ -8,15 +8,6 @@ export default class FormValidator {
         this._form = form;
     }
 
-    // Сброс полей формы до исходного состояния
-    _checkFormSubmit(event) {
-        event.preventDefault();
-
-        if (this._form.checkValidity()) {
-            this._form.reset();
-        }
-    }
-
 
     // ---------- Проверка правильности заполнения полей формы ----------
     // Сброс текстов и стилей ошибок, если форма валидна
@@ -63,10 +54,6 @@ export default class FormValidator {
     // ---------- Управление процессом валидации ----------
     // Запуск валидации всей формы
     enableValidation() {
-        this._form.addEventListener('submit', (event) => {
-            this._checkFormSubmit(event);
-        });
-
         this._form.addEventListener('reset', () => {
             this._setBtnInvalid();
         });
