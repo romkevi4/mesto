@@ -7,10 +7,6 @@
   position: relative;
 }
 
-.popup__container:hover {
-  cursor: pointer;
-}
-
 @media screen and (max-width: 540px) {
   .popup__container {
     min-width: 282px;

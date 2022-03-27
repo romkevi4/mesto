@@ -5,3 +5,7 @@
   opacity: 1;
   transition-delay: 0s, 0s, 0s;
 }
+
+.popup_opened:hover {
+  cursor: pointer;
+}

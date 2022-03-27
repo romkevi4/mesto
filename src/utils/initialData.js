@@ -36,7 +36,6 @@ const classSettings = {
     popupOpenedSelector: 'popup_opened',
     popupCloseBtnSelector: 'popup__close-button',
     popupFormSelector: '.popup__form',
-    popupTitleSelector: '.popup__title',
     elementsContainerSelector: '.elements',
     popupImageSelector: '.popup__image',
     popupTextSelector: '.popup__text',

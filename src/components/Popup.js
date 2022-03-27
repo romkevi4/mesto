@@ -1,7 +1,7 @@
 // =============================== Формирование класса попапа ===============================
 export default class Popup {
-    constructor({ popupOpenedSelector, popupCloseBtnSelector }, popup) {
-        this._popup = popup;
+    constructor({ popupOpenedSelector, popupCloseBtnSelector }, popupSelector) {
+        this._popup = document.querySelector(popupSelector);
         this._popupOpenedSelector = popupOpenedSelector;
         this._popupCloseBtnSelector = popupCloseBtnSelector;
     }
@@ -49,15 +49,15 @@ export default class Popup {
     // ---------- Управление событиями ----------
     // Добавление событий закрытия попапа
     setEventListeners() {
-        this._popup.addEventListener('click', this._handleClickClose);
+        this._popup.addEventListener('click', this._handleClickClose.bind(this));
 
-        document.addEventListener('keydown', this._handleEscClose);
+        document.addEventListener('keydown', this._handleEscClose.bind(this));
     }
 
     // Удаление событий закрытия попапа
     deleteEventListeners() {
-        this._popup.removeEventListener('click', this._handleClickClose);
+        this._popup.removeEventListener('click', this._handleClickClose.bind(this));
 
-        document.removeEventListener('keydown', this._handleEscClose);
+        document.removeEventListener('keydown', this._handleEscClose.bind(this));
     }
 }

@@ -1,26 +1,26 @@
 // =============================== Блок исходной информации ===============================
 // ---------- Импорт данных ----------
 // Исходные данные
-import { initialCards, classSettings } from './components/initialData.js';
+import { initialCards, classSettings } from '../utils/initialData.js';
 
 // Создание новой карточки
-import Card from './components/Card.js';
+import Card from '../components/Card.js';
 
 // Создание валидации форм
-import FormValidator from './components/FormValidator.js';
+import FormValidator from '../components/FormValidator.js';
 
 // Управление попапами
-import PopupWithForm from './components/PopupWithForm.js';
-import PopupWithImage from './components/PopupWithImage.js';
+import PopupWithForm from '../components/PopupWithForm.js';
+import PopupWithImage from '../components/PopupWithImage.js';
 
 // Отрисовка готовых элементов на странице
-import Section from './components/Section.js';
+import Section from '../components/Section.js';
 
 // Отображение информации о пользователе
-import UserInfo from './components/UserInfo.js';
+import UserInfo from '../components/UserInfo.js';
 
 // Стили CSS
-import './pages/index.css';
+import './index.css';
 
 
 // ---------- Получение элементов DOM ----------
@@ -39,11 +39,6 @@ const popupProfileAboutMe = popupFormEditingProfile.elements.userAboutMe;
 // Элементы попапа добавления новой карточки
 const popupAdd = document.querySelector('#popup-add');
 const popupFormAddPlace = popupAdd.querySelector('.popup__form');
-const popupPlaceTitle = popupFormAddPlace.elements.name;
-const popupPlaceLink = popupFormAddPlace.elements.link;
-
-// Элементы попапа с картинками
-const popupImage = document.querySelector('#popup-image');
 
 
 // ---------- Получение инфо о пользователе ----------
@@ -53,50 +48,37 @@ const userInfo = new UserInfo(classSettings);
 // ---------- Получение попапов ----------
 // Попапы с формой
 const popupEditActive = new PopupWithForm(classSettings, {
-    popup: popupEdit,
+    popupSelector: '#popup-edit',
     saveForm: (inputValues) => {
         userInfo.setUserInfo(inputValues);
 
         popupEditActive.close();
     }
 });
+popupEditActive.setEventListeners();
 
 const popupAddActive = new PopupWithForm(classSettings, {
-    popup: popupAdd,
+    popupSelector: '#popup-add',
     saveForm: (inputValues) => {
-        const newCard = new Card({
-                data: inputValues,
-                handleCardClick: (activeImage, activeTitle) => {
-                    popupImageActive.setElementValues(activeImage, activeTitle);
-                    popupImageActive.open();
-                }
-            },
-            '#elements'
-        );
-        newCard.fillCard();
-        cardList.addItem(newCard.fillCard());
+        const iCard = createCard(inputValues);
+        iCard.fillCard();
+        cardList.addItem(iCard.fillCard());
 
         popupAddActive.close();
     }
 });
+popupAddActive.setEventListeners();
 
 // Попап с картинкой
-const popupImageActive = new PopupWithImage(classSettings, popupImage);
+const popupImageActive = new PopupWithImage(classSettings, '#popup-image');
+popupImageActive.setEventListeners();
 
 
 // ---------- Получение карточек ----------
 const cardList = new Section({
         items: initialCards,
         renderer: (cardItem) => {
-            const iCard = new Card({
-                    data: cardItem,
-                    handleCardClick: (activeImage, activeTitle) => {
-                        popupImageActive.setElementValues(activeImage, activeTitle);
-                        popupImageActive.open();
-                    }
-                },
-                '#elements'
-            );
+            const iCard = createCard(cardItem);
             return iCard.fillCard();
         }
     },
@@ -121,10 +103,21 @@ function openPopupEdit() {
 function openPopupAdd() {
     formAddPlace.clearForm();
 
-    popupPlaceTitle.value = '';
-    popupPlaceLink.value = '';
-
     popupAddActive.open();
+}
+
+// Создание новой карточки
+function createCard(objectWithData) {
+    const newCard = new Card({
+            data: objectWithData,
+            handleCardClick: (activeImage, activeTitle) => {
+                popupImageActive.open(activeImage, activeTitle);
+            }
+        },
+        '#elements'
+    );
+
+    return newCard;
 }
 
 
