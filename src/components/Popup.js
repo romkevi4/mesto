@@ -11,6 +11,7 @@ export default class Popup {
     // Открытие попапа
     open() {
         this._addPopupClass();
+        document.addEventListener('keydown', this._handleEscClose.bind(this));
     }
 
     // Добавление класса попапу для его открытия
@@ -23,7 +24,7 @@ export default class Popup {
     // Закрытие попапа
     close() {
         this._deletePopupClass();
-        this.deleteEventListeners();
+        document.removeEventListener('keydown', this._handleEscClose.bind(this));
     }
 
     // Удаление класса у попапа для его закрытия
@@ -50,14 +51,5 @@ export default class Popup {
     // Добавление событий закрытия попапа
     setEventListeners() {
         this._popup.addEventListener('click', this._handleClickClose.bind(this));
-
-        document.addEventListener('keydown', this._handleEscClose.bind(this));
-    }
-
-    // Удаление событий закрытия попапа
-    deleteEventListeners() {
-        this._popup.removeEventListener('click', this._handleClickClose.bind(this));
-
-        document.removeEventListener('keydown', this._handleEscClose.bind(this));
     }
 }

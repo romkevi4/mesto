@@ -61,8 +61,7 @@ const popupAddActive = new PopupWithForm(classSettings, {
     popupSelector: '#popup-add',
     saveForm: (inputValues) => {
         const iCard = createCard(inputValues);
-        iCard.fillCard();
-        cardList.addItem(iCard.fillCard());
+        cardList.addItem(iCard);
 
         popupAddActive.close();
     }
@@ -79,7 +78,7 @@ const cardList = new Section({
         items: initialCards,
         renderer: (cardItem) => {
             const iCard = createCard(cardItem);
-            return iCard.fillCard();
+            return iCard;
         }
     },
     classSettings
@@ -117,7 +116,7 @@ function createCard(objectWithData) {
         '#elements'
     );
 
-    return newCard;
+    return newCard.fillCard();
 }
 
 

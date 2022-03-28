@@ -34,13 +34,6 @@ export default class PopupWithForm extends Popup {
         this._popupForm.addEventListener('submit', this._setSubmitAction.bind(this));
     }
 
-    // Удаление событий закрытия попапа
-    deleteEventListeners() {
-        super.deleteEventListeners();
-
-        this._popupForm.removeEventListener('submit', this._setSubmitAction.bind(this));
-    }
-
 
     // ---------- Управление сбором данных со всех полей формы ----------
     // Получение данных
