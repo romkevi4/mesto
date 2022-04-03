@@ -20,7 +20,7 @@ import Section from '../components/Section.js';
 import UserInfo from '../components/UserInfo.js';
 
 // Стили CSS
-import './index.css';
+// import './index.css';
 
 
 // ---------- Получение элементов DOM ----------
@@ -137,3 +137,10 @@ formEditingProfile.enableValidation();
 
 const formAddPlace = new FormValidator(classSettings, popupFormAddPlace);
 formAddPlace.enableValidation();
+
+const PopupDelete = document.querySelector('#popup-card-delete');
+const deleteCardBtn = document.querySelector('.element__title');
+
+deleteCardBtn.addEventListener('click', () => {
+    PopupDelete.classList.add('popup_opened');
+});

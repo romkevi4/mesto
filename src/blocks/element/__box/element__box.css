@@ -3,10 +3,11 @@
   margin: 25px auto 25px;
   padding: 0;
   width: 90%;
+  height: min-content;
   
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  align-items: baseline;
+  align-items: center;
 }
 

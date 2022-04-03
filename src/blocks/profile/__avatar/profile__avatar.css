@@ -5,4 +5,14 @@
   max-height: 120px;
   width: 100%;
   border-radius: 50%;
+  opacity: 1;
+  transition: opacity 180ms linear 2ms;
+}
+
+.profile__avatar:hover {
+  background-color: rgba(0, 0, 0, .8);
+  background-image: url(../../../images/profile/profile-edit.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 26px 26px;
 }

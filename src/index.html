@@ -4,14 +4,15 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../src/pages/index.css">
   <title>Mesto</title>
 </head>
 <body class="root">
   <div class="page">
     <header class="header">
       <img 
-        src="<%=require('./images/header/__logo/header-logo.svg')%>"
-        alt="Изображен логотип Mesto" 
+        src="./images/header/__logo/header-logo.svg"
+        alt="Изображен логотип Mesto"
         class="header__logo"
       >
     </header>
@@ -19,11 +20,13 @@
     <main class="main">
       <section class="profile">
         <div class="profile__card">
-          <img 
-            src="<%=require('./images/profile/__avatar/profile-avatar.png')%>"
-            alt="На аватарке изображен Жак-Ив Кусто, французский исследователь Мирового океана"
-            class="profile__avatar"
-          >       
+          <button class="profile__avatar-btn">
+            <img
+              src="./images/profile/__avatar/profile-avatar.png"
+              alt="На аватарке изображен Жак-Ив Кусто, французский исследователь Мирового океана"
+              class="profile__avatar"
+            >
+          </button>
           <div class="profile__info">
             <div class="profile__box">
               <h1 class="profile__name">Жак-Ив Кусто</h1>
@@ -126,6 +129,16 @@
       </div> <!-- .popup__container -->
     </div> <!-- .popup -->
 
+    <div class="popup" id="popup-card-delete">
+      <div class="popup__container">
+        <button aria-label="Закрыть" type="button" class="popup__close-button"></button>
+        <form method="post" name="deleteCard" class="popup__form" novalidate>
+          <h2 class="popup__title popup__title_margin_bottom">Вы уверены?</h2>
+          <button aria-label="Подтверждение удаления" type="submit" class="popup__save-button"></button>
+        </form>
+      </div> <!-- .popup__container -->
+    </div> <!-- .popup -->
+
     <template id="elements">
       <article class="element">
         <button aria-label="Картинка" type="button" class="element__image-button">
@@ -133,11 +146,16 @@
         </button>
         <div class="element__box">
           <h2 class="element__title"></h2>
-          <button aria-label="Лайк" type="button" class="element__like-button"></button>
+          <div class="element__like-info">
+            <button aria-label="Лайк" type="button" class="element__like-button"></button>
+            <span class="element__like-number">0</span>
+          </div>
         </div>
         <button aria-label="Удалить" type="button" class="element__delete-button"></button>
       </article>
     </template>
   </div> <!-- .page -->
+
+  <script type="module" src="./pages/index.js"></script>
 </body>
 </html>
