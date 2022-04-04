@@ -10,9 +10,6 @@
 }
 
 .profile__avatar:hover {
-  background-color: rgba(0, 0, 0, .8);
-  background-image: url(../../../images/profile/profile-edit.svg);
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: 26px 26px;
+  cursor: pointer;
+  opacity: .2;
 }

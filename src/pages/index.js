@@ -31,7 +31,7 @@ const profileEditBtn = document.querySelector('.profile__edit-button');
 const placeAddBtn = document.querySelector('.profile__add-button');
 
 // Элементы попапа редактирования профиля
-const popupEdit = document.querySelector('#popup-edit');
+const popupEdit = document.querySelector('#popup-edit-profile');
 const popupFormEditingProfile = popupEdit.querySelector('.popup__form');
 const popupProfileName = popupFormEditingProfile.elements.userName;
 const popupProfileAboutMe = popupFormEditingProfile.elements.userAboutMe;
@@ -48,7 +48,7 @@ const userInfo = new UserInfo(classSettings);
 // ---------- Получение попапов ----------
 // Попапы с формой
 const popupEditActive = new PopupWithForm(classSettings, {
-    popupSelector: '#popup-edit',
+    popupSelector: '#popup-edit-profile',
     saveForm: (inputValues) => {
         userInfo.setUserInfo(inputValues);
 
@@ -138,9 +138,20 @@ formEditingProfile.enableValidation();
 const formAddPlace = new FormValidator(classSettings, popupFormAddPlace);
 formAddPlace.enableValidation();
 
-const PopupDelete = document.querySelector('#popup-card-delete');
+
+// Временный блок ====================================================================
+const popupDelete = document.querySelector('#popup-card-delete');
 const deleteCardBtn = document.querySelector('.element__title');
+const editAvatar = document.querySelector('.profile__avatar-btn');
+const popupEditAvatar = document.querySelector('#popup-edit-avatar');
+const popupFormEditingAvatar = popupEdit.querySelector('.popup__form');
+const popupAvatar = popupFormEditingProfile.elements.userName;
 
 deleteCardBtn.addEventListener('click', () => {
-    PopupDelete.classList.add('popup_opened');
+    popupDelete.classList.add('popup_opened');
 });
+
+editAvatar.addEventListener('click', () => {
+    popupEditAvatar.classList.add('popup_opened');
+});
+

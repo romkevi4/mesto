@@ -1,0 +1,4 @@
+/* Popup */
+.popup__save-button_content_add-card::after {
+  content: "Создать";
+}
