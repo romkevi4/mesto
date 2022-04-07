@@ -1,7 +1,19 @@
 // =============================== Блок исходной информации ===============================
 // ---------- Импорт данных ----------
 // Исходные данные
-import { initialCards, classSettings } from '../utils/initialData.js';
+import { classSettings, identificationData } from '../utils/initialData.js';
+
+// Получение элементов DOM
+import {
+    profileEditBtn,
+    placeAddBtn,
+    popupEdit,
+    popupFormEditingProfile,
+    popupProfileName,
+    popupProfileAboutMe,
+    popupAdd,
+    popupFormAddPlace
+} from '../utils/constants.js';
 
 // Создание новой карточки
 import Card from '../components/Card.js';
@@ -19,30 +31,47 @@ import Section from '../components/Section.js';
 // Отображение информации о пользователе
 import UserInfo from '../components/UserInfo.js';
 
+// Управление работой с API
+import Api from '../components/Api.js';
+
 // Стили CSS
 // import './index.css';
 
 
-// ---------- Получение элементов DOM ----------
-// Элементы блока редактирования профиля
-const profileEditBtn = document.querySelector('.profile__edit-button');
-
-// Элементы блока с карточками
-const placeAddBtn = document.querySelector('.profile__add-button');
-
-// Элементы попапа редактирования профиля
-const popupEdit = document.querySelector('#popup-edit-profile');
-const popupFormEditingProfile = popupEdit.querySelector('.popup__form');
-const popupProfileName = popupFormEditingProfile.elements.userName;
-const popupProfileAboutMe = popupFormEditingProfile.elements.userAboutMe;
-
-// Элементы попапа добавления новой карточки
-const popupAdd = document.querySelector('#popup-add');
-const popupFormAddPlace = popupAdd.querySelector('.popup__form');
 
 
-// ---------- Получение инфо о пользователе ----------
+// =============================== Блок экземпляров классов ===============================
+// ---------- Получение данных пользователя ----------
 const userInfo = new UserInfo(classSettings);
+const api = new Api(identificationData);
+api.getUserData()
+    .then(res => {
+        userInfo.setUserInfo(res);
+    })
+    .catch(err => {
+        console.log(`Ошибка: ${err}`);
+    });
+
+
+// ---------- Получение карточек ----------
+api.getInitialCards()
+    .then(res => {
+        const cardList = new Section({
+                items: res,
+                renderer: (cardItem) => {
+                    const iCard = createCard(cardItem);
+                    return iCard;
+                }
+            },
+            classSettings
+        );
+        cardList.renderItems();
+    })
+    .catch(err => {
+        console.log(`Ошибочка: ${err}`);
+    });
+
+
 
 
 // ---------- Получение попапов ----------
@@ -57,33 +86,23 @@ const popupEditActive = new PopupWithForm(classSettings, {
 });
 popupEditActive.setEventListeners();
 
-const popupAddActive = new PopupWithForm(classSettings, {
-    popupSelector: '#popup-add',
+const popupAddCard = new PopupWithForm(classSettings, {
+    popupSelector: '#popup-add-card',
     saveForm: (inputValues) => {
         const iCard = createCard(inputValues);
         cardList.addItem(iCard);
 
-        popupAddActive.close();
+        popupAddCard.close();
     }
 });
-popupAddActive.setEventListeners();
+popupAddCard.setEventListeners();
 
 // Попап с картинкой
 const popupImageActive = new PopupWithImage(classSettings, '#popup-image');
 popupImageActive.setEventListeners();
 
 
-// ---------- Получение карточек ----------
-const cardList = new Section({
-        items: initialCards,
-        renderer: (cardItem) => {
-            const iCard = createCard(cardItem);
-            return iCard;
-        }
-    },
-    classSettings
-);
-cardList.renderItems();
+
 
 
 
@@ -93,8 +112,10 @@ cardList.renderItems();
 function openPopupEdit() {
     formEditingProfile.clearForm();
 
+    // popupProfileAboutMe.value = userInfo.getUserInfo().userAboutMe;
+    // popupProfileAboutMe.value = userInfo.getUserInfo().userAboutMe;
+    popupProfileName.value = api.getUserData().name;
     popupProfileName.value = userInfo.getUserInfo().userName;
-    popupProfileAboutMe.value = userInfo.getUserInfo().userAboutMe;
 
     popupEditActive.open();
 }
@@ -102,10 +123,11 @@ function openPopupEdit() {
 function openPopupAdd() {
     formAddPlace.clearForm();
 
-    popupAddActive.open();
+    popupAddCard.open();
 }
 
-// Создание новой карточки
+
+// ---------- Создание новой карточки ----------
 function createCard(objectWithData) {
     const newCard = new Card({
             data: objectWithData,
@@ -139,6 +161,8 @@ const formAddPlace = new FormValidator(classSettings, popupFormAddPlace);
 formAddPlace.enableValidation();
 
 
+
+
 // Временный блок ====================================================================
 const popupDelete = document.querySelector('#popup-card-delete');
 const deleteCardBtn = document.querySelector('.element__title');
@@ -147,11 +171,11 @@ const popupEditAvatar = document.querySelector('#popup-edit-avatar');
 const popupFormEditingAvatar = popupEdit.querySelector('.popup__form');
 const popupAvatar = popupFormEditingProfile.elements.userName;
 
-deleteCardBtn.addEventListener('click', () => {
-    popupDelete.classList.add('popup_opened');
-});
-
-editAvatar.addEventListener('click', () => {
-    popupEditAvatar.classList.add('popup_opened');
-});
+// deleteCardBtn.addEventListener('click', () => {
+//     popupDelete.classList.add('popup_opened');
+// });
+//
+// editAvatar.addEventListener('click', () => {
+//     popupEditAvatar.classList.add('popup_opened');
+// });
 

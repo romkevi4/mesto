@@ -46,7 +46,7 @@ export default class FormValidator {
     }
 
     // Проверка валидности кнопки отправки формы
-    _checkBtnValidity () {
+    _checkBtnValidity() {
         this._form.checkValidity() ? this._setBtnValid() : this._setBtnInvalid();
     }
 

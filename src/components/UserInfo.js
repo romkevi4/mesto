@@ -1,8 +1,9 @@
 // =============================== Формирование класса с информацией о пользователе ===============================
 export default class UserInfo {
-    constructor({ userName, userAboutMe }) {
+    constructor({ userName, userAboutMe, userAvatar }) {
         this._userName = document.querySelector(userName) ;
         this._userAboutMe = document.querySelector(userAboutMe);
+        this._userAvatar = document.querySelector(userAvatar);
     }
 
     getUserInfo() {
@@ -13,8 +14,9 @@ export default class UserInfo {
         return this._userData;
     }
 
-    setUserInfo(data) {
-        this._userName.textContent = data.userName;
-        this._userAboutMe.textContent = data.userAboutMe;
+    setUserInfo({ name, about, avatar }) {
+        this._userName.textContent = name;
+        this._userAboutMe.textContent = about;
+        this._userAvatar.src = avatar;
     }
 }
