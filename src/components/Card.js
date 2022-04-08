@@ -1,10 +1,13 @@
 // =============================== Формирование класса карточки ===============================
 export default class Card {
-    constructor({ data, handleCardClick }, cardSelector) {
+    constructor({ data, handleCardClick, handleDeleteCard }, cardSelector) {
         this._image = data.link;
         this._name = data.name;
+        this._likes = data.likes;
+        this._id = data._id;
         this._cardSelector = cardSelector;
         this._handleCardClick = handleCardClick;
+        this._handleDeleteCard = handleDeleteCard;
     }
 
 
@@ -30,6 +33,9 @@ export default class Card {
         elementImage.src = this._image;
         elementImage.alt = this._name;
         this._element.querySelector('.element__title').textContent = this._name;
+        this._element.querySelector('.element__like-number').textContent = this._likes.length;
+
+        this._checkImageOwnership();
 
         return this._element;
     }
@@ -41,7 +47,8 @@ export default class Card {
         });
 
         this._element.querySelector('.element__delete-button').addEventListener('click', () => {
-            this._deleteCard();
+            // this._deleteCard();
+            this._handleDeleteCard();
         });
 
         this._element.querySelector('.element__image-button').addEventListener('click', () => {
@@ -58,5 +65,15 @@ export default class Card {
     _deleteCard() {
         this._element.remove();
         this._element = null;
+    }
+
+    // Проверка принадлежности картинки пользователю
+    // TODO: нужно определить добавлять кнопку удаления добавенной карточке или удалять у чужих
+    _checkImageOwnership() {
+        // if () {
+        //     this._deleteDtn = this._element.querySelector('.element__delete-button');
+        //     this._deleteDtn.remove();
+        //     this._deleteDtn = null;
+        // }
     }
 }

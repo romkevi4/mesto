@@ -6,22 +6,26 @@ const profileEditBtn = document.querySelector('.profile__edit-button');
 const placeAddBtn = document.querySelector('.profile__add-button');
 
 // Элементы попапа редактирования профиля
-const popupEdit = document.querySelector('#popup-edit-profile');
-const popupFormEditingProfile = popupEdit.querySelector('.popup__form');
-const popupProfileName = popupFormEditingProfile.elements.userName;
-const popupProfileAboutMe = popupFormEditingProfile.elements.userAboutMe;
+const popupEditProfile = document.querySelector('#popup-edit-profile');
+const popupFormEditingProfile = popupEditProfile.querySelector('.popup__form');
+const popupProfileName = popupFormEditingProfile.elements.name;
+const popupProfileAboutMe = popupFormEditingProfile.elements.about;
 
 // Элементы попапа добавления новой карточки
-const popupAdd = document.querySelector('#popup-add-card');
-const popupFormAddPlace = popupAdd.querySelector('.popup__form');
+const popupAddCard = document.querySelector('#popup-add-card');
+const popupFormAddPlace = popupAddCard.querySelector('.popup__form');
+
+// Элементы попапа удаления карточки
+const popupDeleteCard = document.querySelector('#popup-delete-card');
 
 export {
     profileEditBtn,
     placeAddBtn,
-    popupEdit,
+    popupEditProfile,
     popupFormEditingProfile,
     popupProfileName,
     popupProfileAboutMe,
-    popupAdd,
-    popupFormAddPlace
+    popupAddCard,
+    popupFormAddPlace,
+    popupDeleteCard
 };

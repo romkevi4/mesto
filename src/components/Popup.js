@@ -50,6 +50,6 @@ export default class Popup {
     // ---------- Управление событиями ----------
     // Добавление событий закрытия попапа
     setEventListeners() {
-        this._popup.addEventListener('click', this._handleClickClose.bind(this));
+        this._popup.addEventListener('mousedown', this._handleClickClose.bind(this));
     }
 }

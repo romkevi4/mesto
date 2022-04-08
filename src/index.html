@@ -24,7 +24,7 @@
       <!-- =============================== Profile =============================== -->
       <section class="profile">
         <div class="profile__card">
-          <button class="profile__avatar-btn">
+          <button aria-label="Аватар" type="button" class="profile__avatar-btn">
             <img
               src=""
               alt="Аватар"
@@ -66,7 +66,7 @@
             minlength="2"
             maxlength="40"
             autocomplete="off"
-            name="userName"
+            name="name"
             placeholder="Имя пользователя"
             value=""
             required
@@ -80,7 +80,7 @@
             minlength="2"
             maxlength="200"
             autocomplete="off"
-            name="userAboutMe"
+            name="about"
             placeholder="О себе"
             value=""
             required
@@ -107,7 +107,7 @@
             minlength="2"
             maxlength="30"
             autocomplete="off"
-            name="name"
+            name="title"
             placeholder="Название"
             value=""
             required
@@ -190,7 +190,7 @@
           <h2 class="element__title"></h2>
           <div class="element__like-info">
             <button aria-label="Лайк" type="button" class="element__like-button"></button>
-            <span class="element__like-number">0</span>
+            <span name="likes" class="element__like-number">0</span>
           </div>
         </div>
         <button aria-label="Удалить" type="button" class="element__delete-button"></button>
