@@ -10,9 +10,7 @@
   border-radius: 2px;
   opacity: 1;
   transition: opacity 180ms linear 2ms;
-}
 
-.popup__save-button::after {
   content: "Сохранить";
   color: #fff;
   font-size: 18px;
@@ -31,9 +29,7 @@
     margin-bottom: 25px;
     width: 238px;
     height: 46px;
-  }
 
-  .popup__save-button::after {
     font-size: 14px;
     line-height: 1.21;
   }

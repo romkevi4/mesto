@@ -25,7 +25,7 @@ import FormValidator from '../components/FormValidator.js';
 // Управление попапами
 import PopupWithForm from '../components/PopupWithForm.js';
 import PopupWithImage from '../components/PopupWithImage.js';
-import PopupDeleteCard from '../components/PopupDeleteCard.js';
+import PopupWithConfirmation from '../components/PopupWithConfirmation.js';
 
 // Отрисовка готовых элементов на странице
 import Section from '../components/Section.js';
@@ -43,23 +43,27 @@ import Api from '../components/Api.js';
 
 
 // =============================== Блок экземпляров классов ===============================
-// ---------- Получение данных пользователя ----------
-const userInfo = new UserInfo(classSettings);
 const api = new Api(identificationData);
+
+
+// ---------- Управление данными пользователя ----------
+// const userInfo = new UserInfo(classSettings);
 api.getUserData()
     .then(res => {
-        userInfo.setUserInfo(res);
-        userInfo.setUserAvatar(res);
+        return new UserInfo(classSettings, res);
+    })
+    .then(data => {
+        return data.addUserDataToPage();
     })
     .catch(err => {
         console.log(`Ошибка: ${err}`);
     });
 
 
-// ---------- Получение карточек ----------
+// ---------- Управление карточками ----------
 api.getInitialCards()
     .then(res => {
-        const cardList = new Section({
+        return new Section({
                 items: res,
                 renderer: (res) => {
                     const iCard = createCard(res);
@@ -68,29 +72,34 @@ api.getInitialCards()
             },
             classSettings
         );
-        cardList.renderItems();
+    })
+    .then(data => {
+        return data.renderItems();
     })
     .catch(err => {
-        console.log(err);
+        console.log(`Ошибка: ${err}`);
     });
 
 
-// ---------- Получение попапов ----------
+// ---------- Управление попапами ----------
 // Попапы с формой
 const popupEditProfileActive = new PopupWithForm(classSettings, {
     popupSelector: '#popup-edit-profile',
     saveForm: (inputValues) => {
-        userInfo.setUserInfo(inputValues);
         api.saveUserData(inputValues)
-            .then(res => res)
-            .catch(err => {
-                console.log(err);
+            .then(res => {
+                return new UserInfo(classSettings, res);
             })
+            .then(data => {
+                return data.addUserDataToPage();
+            })
+            .catch(err => {
+                console.log(`Ошибка: ${err}`);
+            });
 
         popupEditProfileActive.close();
     }
 });
-popupEditProfileActive.setEventListeners();
 
 const popupAddCardActive = new PopupWithForm(classSettings, {
     popupSelector: '#popup-add-card',
@@ -111,23 +120,33 @@ const popupAddCardActive = new PopupWithForm(classSettings, {
                 cardList.addItem(iCard);
             })
             .catch(err => {
-                console.log(err);
+                console.log(`Ошибка: ${err}`);
             });
 
         popupAddCardActive.close();
     }
 });
-popupAddCardActive.setEventListeners();
 
-const popupDeleteCardActive = new PopupDeleteCard(classSettings, '#popup-delete-card');
-popupDeleteCardActive.setEventListeners();
+const popupDeleteCardActive = new PopupWithConfirmation(classSettings, {
+    popupSelector: '#popup-delete-card',
+    submitForm: (cardId, card) => {
+        api.deleteCard(cardId)
+            .then(res => res)
+            .catch(err => {
+                console.log(`Ошибка: ${err}`);
+            });
+
+        card.deleteCardItem();
+
+        popupDeleteCardActive.close();
+    }
+});
 
 // Попап с картинкой
 const popupImageActive = new PopupWithImage(classSettings, '#popup-image');
-popupImageActive.setEventListeners();
 
 
-
+// ---------- Управление лайками карточки ----------
 
 
 
@@ -137,8 +156,8 @@ popupImageActive.setEventListeners();
 function openPopupEdit() {
     formEditingProfile.clearForm();
 
-    popupProfileName.value = userInfo.getUserInfo().userName;
-    popupProfileAboutMe.value = userInfo.getUserInfo().userAboutMe;
+    // popupProfileName.value = userInfo.getUserInfo().userName;
+    // popupProfileAboutMe.value = userInfo.getUserInfo().userAboutMe;
 
     popupEditProfileActive.open();
 }
@@ -156,8 +175,40 @@ function createCard(objectWithData) {
             handleCardClick: (activeImage, activeTitle) => {
                 popupImageActive.open(activeImage, activeTitle);
             },
-            handleDeleteCard: () => {
-                popupDeleteCardActive.open();
+            handlePopupDeleteCard: (cardId, card) => {
+                popupDeleteCardActive.open(cardId, card);
+            },
+            chooseLikeCard: (cardId, newLikes) => {
+                if (!newCard.isLikedCard()) {
+                    api.addLikeOfCard(cardId, newLikes)
+                        .then(res => {
+                            //TODO: добавить в массив с карточками пользователя из UserInfo
+                            return res.likes;
+                        })
+                        .then(data => {
+                            data.push(user);
+                            return api.addUserInLikeList(cardId, data)
+                                .then(res => {
+
+                                })
+                                .catch(err => {
+                                    console.log(`Ошибка: ${err}`);
+                                });
+                        })
+                        .catch(err => {
+                            console.log(`Ошибка: ${err}`);
+                        });
+
+                    newCard.toggleLikeBtnClass();
+                } else {
+                    api.removeLikeOfCard(cardId)
+                        .then(res => res)
+                        .catch(err => {
+                            console.log(`Ошибка: ${err}`);
+                        });
+
+                    newCard.toggleLikeBtnClass();
+                }
             }
         },
         '#elements'
@@ -173,6 +224,12 @@ function createCard(objectWithData) {
 // События открытия попапов
 profileEditBtn.addEventListener('click', openPopupEdit);
 placeAddBtn.addEventListener('click', openPopupAdd);
+
+// События для взаимодействия с попапами
+popupEditProfileActive.setEventListeners();
+popupAddCardActive.setEventListeners();
+popupDeleteCardActive.setEventListeners();
+popupImageActive.setEventListeners();
 
 
 

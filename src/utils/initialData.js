@@ -39,9 +39,9 @@ const classSettings = {
     elementsContainerSelector: '.elements',
     popupImageSelector: '.popup__image',
     popupTextSelector: '.popup__text',
-    userName: '.profile__name',
-    userAboutMe: '.profile__about-me',
-    userAvatar: '.profile__avatar'
+    userNameSelector: '.profile__name',
+    userAboutMeSelector: '.profile__about-me',
+    userAvatarSelector: '.profile__avatar'
 };
 
 // Личный токен и идентификатор группы

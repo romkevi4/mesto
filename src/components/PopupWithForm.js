@@ -6,7 +6,7 @@ export default class PopupWithForm extends Popup {
             inputSelector,
             popupOpenedSelector,
             popupCloseBtnSelector,
-            popupFormSelector,
+            popupFormSelector
         }, {
         popupSelector,
         saveForm

@@ -1,4 +1,0 @@
-/* Popup */
-.popup__save-button_content_delete-card::after {
-  content: "Да";
-}
