@@ -35,11 +35,6 @@ export default class UserInfo {
         return this._userData;
     }
 
-    // Получение id пользователя
-    getUserId() {
-        return this._id;
-    }
-
     // Корректировка данных пользователя на странице
     setUserInfo({ nameNew, aboutNew }) {
         this._userNameElement.textContent = nameNew;
@@ -47,8 +42,8 @@ export default class UserInfo {
     }
 
     // Корректировака аватара на странице
-    setUserAvatar({ avatarNew }) {
-        this._userAvatarElement.src = avatarNew;
+    setUserAvatar(avatar) {
+        return this._userAvatarElement.src = avatar;
     }
 
 

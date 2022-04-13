@@ -1,7 +1,8 @@
 // =============================== Формирование класса попапа ===============================
 export default class Popup {
     constructor({ popupOpenedSelector, popupCloseBtnSelector }, popupSelector) {
-        this._popup = document.querySelector(popupSelector);
+        this._popupSelector = popupSelector;
+        this._popup = document.querySelector(this._popupSelector);
         this._popupOpenedSelector = popupOpenedSelector;
         this._popupCloseBtnSelector = popupCloseBtnSelector;
     }
