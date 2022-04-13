@@ -13,7 +13,7 @@ export default class Api {
             return res.json();
         }
 
-        return Promise.reject(`Что-то пошло не так, ошибка: ${res.status}`)
+        return Promise.reject(`Что-то пошло не так, ошибка: ${res.status}`);
     }
 
     // Запрос получения данных пользователя с сервера
@@ -38,6 +38,21 @@ export default class Api {
             body: JSON.stringify({
                 name: objectWithUserData.name,
                 about: objectWithUserData.about
+            })
+        })
+            .then(this._processResponseData);
+    }
+
+    // Запрос сохранения измененных аватара пользователя
+    saveUserAvatar(avatarUrl) {
+        return fetch(`${this._baseUrl}/users/me/avatar`, {
+            method: 'PATCH',
+            headers: {
+                authorization: this._token,
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify({
+                avatar: avatarUrl
             })
         })
             .then(this._processResponseData);
@@ -82,7 +97,7 @@ export default class Api {
     }
 
     // Запрос на постановку лайка карточки
-    addLikeOfCard(cardId, newLikes) {
+    addLikeOfCard(cardId, user) {
         return fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
             method: 'PUT',
             headers: {
@@ -90,43 +105,23 @@ export default class Api {
                 'content-type': 'application/json'
             },
             body: JSON.stringify({
-                likes: newLikes
+                likes: user
             })
         })
             .then(this._processResponseData);
     }
 
-    removeLikeOfCard(cardId) {
+    // Запрос на снятие лайка с карточки
+    removeLikeOfCard(cardId, user) {
         return fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
             method: 'DELETE',
-            headers: {
-                authorization: this._token
-            }
-        })
-            .then(this._processResponseData);
-    }
-
-    addUserInLikeList(cardId, likeList) {
-        return fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
-            method: 'PATCH',
             headers: {
                 authorization: this._token,
                 'content-type': 'application/json'
             },
             body: JSON.stringify({
-                name: objectWithUserData.name,
-                about: objectWithUserData.about
+                likes: user
             })
-        })
-            .then(this._processResponseData);
-    }
-
-    deleteUserInLikeList(cardId) {
-        return fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
-            method: 'DELETE',
-            headers: {
-                authorization: this._token
-            }
         })
             .then(this._processResponseData);
     }

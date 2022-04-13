@@ -4,7 +4,6 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="../src/pages/index.css">
   <title>Mesto</title>
 </head>
 <body class="root">
@@ -12,7 +11,7 @@
     <!-- =============================== Header =============================== -->
     <header class="header">
       <img 
-        src="./images/header/__logo/header-logo.svg"
+        src="<%=require('./images/header/__logo/header-logo.svg')%>"
         alt="Изображен логотип Mesto"
         class="header__logo"
       >
@@ -165,8 +164,8 @@
           <input
             type="url"
             autocomplete="off"
-            name="linkAvatar"
-            placeholder="Ссылка на фото"
+            name="avatar"
+            placeholder="Ссылка на аватар профиля"
             value=""
             required
             class="popup__item"
@@ -193,11 +192,8 @@
             <span name="likes" class="element__like-number">0</span>
           </div>
         </div>
-<!--        <button aria-label="Удалить" type="button" class="element__delete-button"></button>-->
       </article>
     </template>
   </div> <!-- .page -->
-
-  <script type="module" src="./pages/index.js"></script>
 </body>
 </html>
