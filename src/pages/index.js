@@ -38,7 +38,7 @@ import UserInfo from '../components/UserInfo.js';
 import Api from '../components/Api.js';
 
 // Стили CSS
-// import './index.css';
+import './index.css';
 
 
 
