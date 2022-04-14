@@ -6,6 +6,11 @@ export default class Section {
         this._elementsContainer = document.querySelector(elementsContainerSelector);
     }
 
+    // Получение массива с карточками
+    getInitialCards(arrayWithCards) {
+        this._initialArray = arrayWithCards;
+    }
+
     // Визуализация карточки на странице
     addItem(item) {
         this._elementsContainer.prepend(item);

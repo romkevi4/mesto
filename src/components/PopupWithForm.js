@@ -50,9 +50,6 @@ export default class PopupWithForm extends Popup {
     // Действия при отправке формы
     _setSubmitAction(event) {
         event.preventDefault();
-
-        this._popupSelector === '#popup-edit-avatar'
-            ? this._saveForm(this._getInputValues().avatar)
-            : this._saveForm(this._getInputValues());
+        this._saveForm(this._getInputValues());
     }
 }

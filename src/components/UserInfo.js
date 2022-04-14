@@ -1,29 +1,9 @@
 // =============================== Формирование класса с информацией о пользователе ===============================
 export default class UserInfo {
-    constructor({
-            userNameSelector,
-            userAboutMeSelector,
-            userAvatarSelector
-        }, {
-        name,
-        about,
-        avatar,
-        _id
-    }) {
+    constructor({ userNameSelector, userAboutMeSelector, userAvatarSelector }) {
         this._userNameElement = document.querySelector(userNameSelector) ;
         this._userAboutMeElement = document.querySelector(userAboutMeSelector);
         this._userAvatarElement = document.querySelector(userAvatarSelector);
-        this._name = name;
-        this._about = about;
-        this._avatar = avatar;
-        this._id = _id;
-    }
-
-    // Заполнение разметки данными пользователя
-    addUserDataToPage() {
-        this._userNameElement.textContent = this._name;
-        this._userAboutMeElement.textContent = this._about;
-        this._userAvatarElement.src = this._avatar;
     }
 
     // Получение имени пользователя и инфо о себе
@@ -36,15 +16,23 @@ export default class UserInfo {
     }
 
     // Корректировка данных пользователя на странице
-    setUserInfo({ nameNew, aboutNew }) {
-        this._userNameElement.textContent = nameNew;
-        this._userAboutMeElement.textContent = aboutNew;
+    setUserInfo(name, about) {
+        this._userNameElement.textContent = name;
+        this._userAboutMeElement.textContent = about;
     }
 
-    // Корректировака аватара на странице
-    setUserAvatar(avatar) {
-        return this._userAvatarElement.src = avatar;
+    // Получение ID пользователя
+    getMyId(myId) {
+        this._myId = myId;
     }
 
+    // Передача ID пользователя
+    handOverMyId() {
+        return this._myId;
+    }
 
+    // Корректировака ссылки аватара на странице
+    setUserAvatar(avatarUrl) {
+        this._userAvatarElement.src = avatarUrl;
+    }
 }

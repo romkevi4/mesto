@@ -15,7 +15,9 @@ module.exports = {
     mode: 'development',
 
     devServer: {
-        contentBase: path.resolve(__dirname, './dist'),
+        static: {
+            directory: path.join(__dirname, './dist'),
+        },
         open: true,
         compress: true,
         port: 8080
@@ -48,7 +50,7 @@ module.exports = {
 
     plugins: [
         new HtmlWebpackPlugin({
-            template: './src/index.html'
+            template: 'src/index.html'
         }),
         new CleanWebpackPlugin(),
         new MiniCssExtractPlugin(),

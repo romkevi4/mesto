@@ -21,6 +21,11 @@ const popupEditAvatar = document.querySelector('#popup-edit-avatar');
 const popupFormEditingAvatar = popupEditAvatar.querySelector('.popup__form');
 const saveFormAvatarBtn = popupFormEditingAvatar.querySelector('.popup__save-button');
 
+//
+const popupDeleteCard = document.querySelector('#popup-delete-card');
+const popupFormDeleteCard = popupDeleteCard.querySelector('.popup__form');
+const saveFormDeleteCardBtn = popupFormDeleteCard.querySelector('.popup__save-button');
+
 export {
     profileEditBtn,
     profileEditAvatarBtn,
@@ -30,5 +35,6 @@ export {
     popupFormAddPlace,
     saveFormAddPlaceBtn,
     popupFormEditingAvatar,
-    saveFormAvatarBtn
+    saveFormAvatarBtn,
+    saveFormDeleteCardBtn
 };
