@@ -8,16 +8,10 @@ import {
     profileEditBtn,
     profileEditAvatarBtn,
     placeAddBtn,
-    popupEditProfile,
     popupFormEditingProfile,
-    popupProfileName,
-    popupProfileAboutMe,
     saveFormProfileBtn,
-    popupAddCard,
     popupFormAddPlace,
     saveFormAddPlaceBtn,
-    popupDeleteCard,
-    popupEditAvatar,
     popupFormEditingAvatar,
     saveFormAvatarBtn
 } from '../utils/constants.js';
@@ -43,7 +37,7 @@ import UserInfo from '../components/UserInfo.js';
 import Api from '../components/Api.js';
 
 // Стили CSS
-// import './index.css';
+import './index.css';
 
 
 
@@ -192,15 +186,12 @@ const popupDeleteCardActive = new PopupWithConfirmation(classSettings, {
 const popupImageActive = new PopupWithImage(classSettings, '#popup-image');
 
 
-// ---------- Управление лайками карточки ----------
-
-
 
 
 // =============================== Блок фукнций ===============================
 // ---------- Управление попапами ----------
 function openPopupEdit() {
-    formEditingProfile.clearForm();S
+    formEditingProfile.clearForm();
     popupEditProfileActive.open();
 }
 
