@@ -9,30 +9,22 @@ export default class UserInfo {
     // Получение имени пользователя и инфо о себе
     getUserInfo() {
         this._userData = {
-            userName: this._userNameElement.textContent,
-            userAboutMe: this._userAboutMeElement.textContent
+            name: this._userNameElement.textContent,
+            about: this._userAboutMeElement.textContent
         }
         return this._userData;
     }
 
     // Корректировка данных пользователя на странице
-    setUserInfo(name, about) {
+    setUserInfo({ name, about, avatar, _id }) {
         this._userNameElement.textContent = name;
         this._userAboutMeElement.textContent = about;
-    }
-
-    // Получение ID пользователя
-    getMyId(myId) {
-        this._myId = myId;
+        this._userAvatarElement.src = avatar;
+        this._myId = _id;
     }
 
     // Передача ID пользователя
     handOverMyId() {
         return this._myId;
-    }
-
-    // Корректировака ссылки аватара на странице
-    setUserAvatar(avatarUrl) {
-        this._userAvatarElement.src = avatarUrl;
     }
 }

@@ -55,6 +55,7 @@ export default class FormValidator {
     // Запуск валидации всей формы
     enableValidation() {
         this._form.addEventListener('reset', () => {
+            this.clearForm();
             this._setBtnInvalid();
         });
 

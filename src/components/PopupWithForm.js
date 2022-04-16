@@ -3,6 +3,7 @@ import Popup from './Popup.js';
 
 export default class PopupWithForm extends Popup {
     constructor({
+            submitBtnSelector,
             inputSelector,
             popupOpenedSelector,
             popupCloseBtnSelector,
@@ -11,10 +12,11 @@ export default class PopupWithForm extends Popup {
         popupSelector,
         saveForm
     }) {
-        super({ popupOpenedSelector, popupCloseBtnSelector }, popupSelector);
+        super({ submitBtnSelector, popupOpenedSelector, popupCloseBtnSelector }, popupSelector);
         this._popupForm = this._popup.querySelector(popupFormSelector);
         this._saveForm = saveForm;
         this._inputs = this._popup.querySelectorAll(inputSelector);
+
     }
 
 
@@ -40,7 +42,7 @@ export default class PopupWithForm extends Popup {
     _getInputValues() {
         this._inputData = {};
 
-        this._inputs.forEach((input) => {
+        this._inputs.forEach(input => {
             this._inputData[input.name] = input.value;
         });
 
@@ -51,5 +53,18 @@ export default class PopupWithForm extends Popup {
     _setSubmitAction(event) {
         event.preventDefault();
         this._saveForm(this._getInputValues());
+    }
+
+    // Внесение значений в поля формы
+    setInputValues(data) {
+        this._inputs.forEach(input => {
+          input.value = data[input.name];
+        });
+    }
+
+    renderLoading(isLoading, btnText, btnTextInProcess) {
+        isLoading
+            ? this._submitBtn.textContent = btnTextInProcess
+            : this._submitBtn.textContent = btnText;
     }
 }

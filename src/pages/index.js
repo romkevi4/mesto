@@ -9,12 +9,8 @@ import {
     profileEditAvatarBtn,
     placeAddBtn,
     popupFormEditingProfile,
-    saveFormProfileBtn,
     popupFormAddPlace,
-    saveFormAddPlaceBtn,
-    popupFormEditingAvatar,
-    saveFormAvatarBtn,
-    saveFormDeleteCardBtn
+    popupFormEditingAvatar
 } from '../utils/constants.js';
 
 // Создание новой карточки
@@ -70,17 +66,15 @@ let myData,
 
 Promise.all([api.getUserData(), api.getInitialCards()])
     .then(([userData, cards]) => {
-        controlUserData(userData.name, userData.about);
-        controlUserAvatar(userData.avatar);
-        userInfo.getMyId(userData._id);
+        controlUserData(userData);
         myData = userData;
         myId = userInfo.handOverMyId();
 
-        section.getInitialCards(cards);
+        section.setInitialCards(cards);
         section.renderItems();
     })
     .catch(err => {
-        console.log(`Ошибка: ${err}`);
+        console.error(`Ошибка: ${err}`);
     });
 
 
@@ -89,19 +83,18 @@ Promise.all([api.getUserData(), api.getInitialCards()])
 const popupEditProfileActive = new PopupWithForm(classSettings, {
     popupSelector: '#popup-edit-profile',
     saveForm: (inputValues) => {
-        const textSaveBtn = saveFormProfileBtn.textContent;
-        saveFormProfileBtn.textContent = 'Сохранение...';
+        popupEditProfileActive.renderLoading(true, 'Сохранить', 'Сохранение...');
 
         api.saveUserData(inputValues)
             .then(res => {
-                controlUserData(res.name, res.about);
+                controlUserData(res);
                 popupEditProfileActive.close();
             })
             .catch(err => {
-                console.log(`Ошибка: ${err}`);
+                console.error(`Ошибка: ${err}`);
             })
             .finally(() => {
-                saveFormProfileBtn.textContent = textSaveBtn;
+                popupEditProfileActive.renderLoading(false, 'Сохранить', 'Сохранение...');
             })
     }
 });
@@ -110,19 +103,18 @@ const popupEditProfileActive = new PopupWithForm(classSettings, {
 const popupEditAvatarActive = new PopupWithForm(classSettings, {
     popupSelector: '#popup-edit-avatar',
     saveForm: (inputValues) => {
-        const textSaveBtn = saveFormAvatarBtn.textContent;
-        saveFormAvatarBtn.textContent = 'Сохранение...';
+        popupEditAvatarActive.renderLoading(true, 'Сохранить', 'Сохранение...');
 
         api.saveUserAvatar(inputValues.avatar)
             .then(res => {
-                controlUserAvatar(res.avatar);
+                controlUserData(res);
                 popupEditAvatarActive.close();
             })
             .catch(err => {
-                console.log(`Ошибка: ${err}`);
+                console.error(`Ошибка: ${err}`);
             })
             .finally(() => {
-                saveFormAvatarBtn.textContent = textSaveBtn;
+                popupEditAvatarActive.renderLoading(false, 'Сохранить', 'Сохранение...');
             });
     }
 });
@@ -131,8 +123,7 @@ const popupEditAvatarActive = new PopupWithForm(classSettings, {
 const popupAddCardActive = new PopupWithForm(classSettings, {
     popupSelector: '#popup-add-card',
     saveForm: (inputValues) => {
-        const textSaveBtn = saveFormAddPlaceBtn.textContent;
-        saveFormAddPlaceBtn.textContent = 'Создание...';
+        popupAddCardActive.renderLoading(true, 'Сохранить', 'Сохранение...');
 
         api.saveNewCard(inputValues)
             .then(res => {
@@ -140,10 +131,10 @@ const popupAddCardActive = new PopupWithForm(classSettings, {
                 popupAddCardActive.close();
             })
             .catch(err => {
-                console.log(`Ошибка: ${err}`);
+                console.error(`Ошибка: ${err}`);
             })
             .finally(() => {
-                saveFormAddPlaceBtn.textContent = textSaveBtn;
+                popupAddCardActive.renderLoading(false, 'Сохранить', 'Сохранение...');
             })
     }
 });
@@ -152,19 +143,13 @@ const popupAddCardActive = new PopupWithForm(classSettings, {
 const popupDeleteCardActive = new PopupWithConfirmation(classSettings, {
     popupSelector: '#popup-delete-card',
     submitForm: (cardId, card) => {
-        const textSaveBtn = saveFormDeleteCardBtn.textContent;
-        saveFormDeleteCardBtn.textContent = 'Да...';
-
         api.deleteCard(cardId)
             .then(() => {
                 card.deleteCardItem();
                 popupDeleteCardActive.close();
             })
             .catch(err => {
-                console.log(`Ошибка: ${err}`);
-            })
-            .finally(() => {
-                saveFormDeleteCardBtn.textContent = textSaveBtn;
+                console.error(`Ошибка: ${err}`);
             })
     }
 });
@@ -177,18 +162,20 @@ const popupImageActive = new PopupWithImage(classSettings, '#popup-image');
 
 // =============================== Блок фукнций ===============================
 // ---------- Управление попапами ----------
-function openPopupEdit() {
-    formEditingProfile.clearForm();
+function openPopupEditProfile() {
+    formValidators[ popupFormEditingProfile.getAttribute('name') ].clearForm();
+    popupEditProfileActive.setInputValues(userInfo.getUserInfo());
     popupEditProfileActive.open();
+
 }
 
 function openPopupEditAvatar() {
-    formEditingAvatar.clearForm();
+    formValidators[ popupFormEditingAvatar.getAttribute('name') ].clearForm();
     popupEditAvatarActive.open();
 }
 
-function openPopupAdd() {
-    formAddPlace.clearForm();
+function openPopupAddCard() {
+    formValidators[ popupFormAddPlace.getAttribute('name') ].clearForm();
     popupAddCardActive.open();
 }
 
@@ -212,15 +199,11 @@ function createCard(objectWithData) {
                         apiRequest: api.addLikeOfCard(cardId, user),
                         instanceCard: newCard
                     });
-
-                    newCard.addLikeBtnClass();
                 } else {
                     selectRequest({
                         apiRequest: api.removeLikeOfCard(cardId, user),
                         instanceCard: newCard
                     });
-
-                    newCard.removeLikeBtnClass();
                 }
             }
         }, {
@@ -244,29 +227,43 @@ function selectRequest({
             .then(data => {
                 instanceCard.changeLikesArray(data);
                 instanceCard.countLikes(data);
+                instanceCard.toggleLikeBtnClass();
             })
             .catch(err => {
-                console.log(`Ошибка: ${err}`);
+                console.error(`Ошибка: ${err}`);
             });
 }
 
 // Управление данными пользователя
-function controlUserData(name, about) {
-    userInfo.setUserInfo(name, about);
+function controlUserData(data) {
+    userInfo.setUserInfo(data);
 }
 
-// Управление аватаром пользователя
-function controlUserAvatar(avatarUrl) {
-    userInfo.setUserAvatar(avatarUrl);
+
+// ---------- Управление валидацией форм ----------
+const formValidators = {};
+
+const enableValidation = (config) => {
+    const formList = Array.from(document.querySelectorAll(config.popupFormSelector));
+    formList.forEach((formElement) => {
+        const validator = new FormValidator(config, formElement);
+        const formName = formElement.getAttribute('name');
+
+        formValidators[formName] = validator;
+        validator.enableValidation();
+    });
 }
+
+enableValidation(classSettings);
+
 
 
 
 // =============================== Блок основных событий ===============================
 // События открытия попапов
-profileEditBtn.addEventListener('click', openPopupEdit);
+profileEditBtn.addEventListener('click', openPopupEditProfile);
 profileEditAvatarBtn.addEventListener('click', openPopupEditAvatar);
-placeAddBtn.addEventListener('click', openPopupAdd);
+placeAddBtn.addEventListener('click', openPopupAddCard);
 
 
 // События для взаимодействия с попапами
@@ -275,17 +272,3 @@ popupEditAvatarActive.setEventListeners();
 popupAddCardActive.setEventListeners();
 popupDeleteCardActive.setEventListeners();
 popupImageActive.setEventListeners();
-
-
-
-
-// =============================== Блок валидации форм ===============================
-// Старт процесса валидации
-const formEditingProfile = new FormValidator(classSettings, popupFormEditingProfile);
-formEditingProfile.enableValidation();
-
-const formEditingAvatar = new FormValidator(classSettings, popupFormEditingAvatar);
-formEditingAvatar.enableValidation();
-
-const formAddPlace = new FormValidator(classSettings, popupFormAddPlace);
-formAddPlace.enableValidation();
